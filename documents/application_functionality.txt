@@ -1,11 +1,55 @@
 Basic functionality:
 - login - two kind of users: administrator and manager
 - register 
-...
+
+  * Admin:
+  - add/remove manager
+  - create construction site
+  - approve/disapprove request
+  - destroy construction site
+  
+  * Manager:
+  - make request for instrument(s)
+  - turn instrument(s) back
+...  
 
 
 DB structure:
 ...
 
-Pages(screens):
+Page Sections:
+pages
+  signup.html
+  signin.html
+  admin_home.html
+  create_site.html
+  remove_site.html
+  add_remove_manager.html
+  approve_reject_request.html
+  ...
+  manager_home.html
+  make_request.html
+  change_instrument_status.html
+  ...
 ...
+js
+  app
+    signup.js
+    signin.js
+    users.js
+    admin.js
+    manager.js
+    ie_workaraounds
+    ...
+  lib
+    everlive.all.min.js
+    jquery.min.js
+
+
+css
+  ...
+
+
+bootstrap
+  ...
+
