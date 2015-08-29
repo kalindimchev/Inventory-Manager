@@ -1,10 +1,16 @@
 Basic functionality:
 - login - two kind of users: administrator and manager
 - register 
-  *Admin:
+
+  * Admin:
   - add/remove manager
   - create construction site
   - approve/disapprove request
+  - destroy construction site
+  
+  * Manager:
+  - make request for instrument(s)
+  - turn instrument(s) back
 ...  
 
 
