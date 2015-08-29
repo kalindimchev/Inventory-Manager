@@ -1,7 +1,11 @@
 Basic functionality:
 - login - two kind of users: administrator and manager
 - register 
-...
+  *Admin:
+  - add/remove manager
+  - create construction site
+  - approve/disapprove request
+...  
 
 
 DB structure:
