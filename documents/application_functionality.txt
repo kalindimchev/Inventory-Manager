@@ -1,0 +1,11 @@
+Basic functionality:
+- login - two kind of users: administrator and manager
+- register 
+...
+
+
+DB structure:
+...
+
+Pages(screens):
+...
