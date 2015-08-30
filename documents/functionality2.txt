@@ -1,0 +1,72 @@
+User Creation:
+    Only one administrator
+    Only the administrator can create new users and make then only manager
+
+Registration
+    - each person can make new registration
+    - the status of the new registration will be "pending"
+    - the admin can view the new registration and resolve them
+
+Administrator:
+    - resolve new user registrations (table list with action button with modal for each user / row)
+    - view and edit construction sites (again table list with action buttons and modals)
+    - add new site
+    - resolve instruments requests (again table list with action buttons and modals) + count of available instruments + count of instruments in the site of the request
+    - instrument list (only for viewing)
+
+Manager
+    - list of instruments (static) (return instrument option)
+    - construction site (static)
+    - list requests (static) (view status) (button + add request)
+    - add request
+    - return instrument
+
+//// Db structure
+Instruments:
+    - name
+    - model
+    - count (all)
+    - count (available)
+
+Construction site
+    - name
+    - location
+    - one to many (multiple) relationship to instruments
+    - array with count of each available instrument in site
+        -> instrument id
+        -> count
+    (when edition / displaying the inventory of the site both one to many relation and the count array should be used)
+
+
+modules:
+    - instruments
+
+    - sites
+        -> manger
+        -> instruments
+    - admin
+
+    - manager
+        -> site
+
+pages:
+    - login
+    - register
+
+    ---- admin ---
+    - user registration (list with action buttons)
+        -> with option to approve / deny registration
+    - construction sites list (list with action buttons)
+        -> with option to destroy construction site
+    - create new construction site
+    - instruments requests (list with action buttons)
+        -> with option to approve / deny requests
+    - instruments list(static)
+
+    ---- manager -----
+    - construction site profile (static)
+    - construction site instruments list
+        -> with option to return instruments (list with action buttons)
+    - list of instrument requests (static) (+ button add request)
+    - add new request
+
