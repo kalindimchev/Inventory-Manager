@@ -1,6 +1,30 @@
 # Inventory-Manager
 JS Apps Teamwork
 
+TODO:
+2. Application screen and Logic
+  2.1. Initial Screen - Kalin
+    - username input - Kalin
+    - password input - Kalin
+    - login button - check in Dictionary if there is User with given Username and Password - Kalin
+  2.2. Admin Screen
+    2.2.1. Approve Request
+      - Create Reservation and Update Reservation List
+      - Update Request status
+      - Update Instrument count in Admin and Site manager Inventory List
+    2.2.2. Deny Request
+      - Update Request status
+    2.2.4. Add Instrument to Inventory List - Create new Instrument item.
+      Request inventory list is reloading every 10 sec /for example/ or when Single Request change its status.
+    2.2.3. Assign Site manager to Construction site. Construction site is only property
+  2.3. Site manager Screen
+      - Make request button - Create Request object. Display Request inputs and submit button. Update all tables, related with requests.
+      - Release request button - Delete Reservation. Update counts in Admin and Site manager count.
+
+
+Done Tasks:
+Add all Content types in Telerik BackEnd Services
+
 
 Change Architecture Suggestions:
 
