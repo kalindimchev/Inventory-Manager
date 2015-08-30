@@ -4,6 +4,7 @@ User Creation:
 
 Registration
     - each person can make new registration
+    - the new user can be only manager
     - the status of the new registration will be "pending"
     - the admin can view the new registration and resolve them
 
