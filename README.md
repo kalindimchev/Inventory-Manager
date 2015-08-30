@@ -40,9 +40,11 @@ TODO:
       - Release request button - Delete Reservation. Update counts in Admin and Site manager count.
 
 
-Done Tasks:
+
+DONE Tasks:
 
 Add all Content types in Telerik BackEnd Services
+
 
 
 Change Architecture Suggestions:
