@@ -33,11 +33,11 @@ TODO:
       
     2.2.3. Assign Site manager to Construction site. Construction site is only property
     
-  2.3. Site manager Screen
+  2.3. Site manager Screen - Ivelina
   
-      - Make request button - Create Request object. Display Request inputs and submit button. Update all tables, related with requests.
+      - Make request button - Create Request object. Display Request inputs and submit button. Update all tables, related with requests. - Ivelina
       
-      - Release request button - Delete Reservation. Update counts in Admin and Site manager count.
+      - Release request button - Delete Reservation. Update counts in Admin and Site manager count. - Ivelina
     
   2.4 Asynchronous module loading with Systemjs
   
