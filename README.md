@@ -38,6 +38,12 @@ TODO:
       - Make request button - Create Request object. Display Request inputs and submit button. Update all tables, related with requests.
       
       - Release request button - Delete Reservation. Update counts in Admin and Site manager count.
+    
+  2.4 Asynchronous module loading with Systemjs
+  
+      - Implement module loading with Systemjs - Konstantin
+      
+      - Improve the testability of the different modules - Konstantin
 
 
 
