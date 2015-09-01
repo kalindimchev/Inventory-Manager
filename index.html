@@ -206,7 +206,16 @@
     </div>
 
 
-
+    <script src="bower_components/system.js/dist/system.js"></script>
+    <script>
+        System.config({
+            transpiler: 'babel',
+            map: {
+                babel: './node_modules/babel-core/browser.js'
+            }
+        });
+        System.import('js/inventory-manager.js');
+    </script>
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
@@ -226,7 +235,7 @@
     <script src="js/freelancer.js"></script>
 
     <!-- Application Logic -->
-    <script src="js/inventory-manager.js"></script>
+    <!--<script src="js/inventory-manager.js"></script>-->
 
 </body>
 
