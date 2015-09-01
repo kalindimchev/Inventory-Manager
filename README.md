@@ -116,9 +116,9 @@ TODO:
       
     2.2.4. Add Instrument to Inventory List - Create new Instrument item. - Christina
     
-      Request inventory list is reloading every 10 sec /for example/ or when Single Request change its status.
+      Request inventory list is reloading every 10 sec /for example/ or when Single Request change its status. - Katya
       
-    2.2.3. Assign Site manager to Construction site. Construction site is only property
+    2.2.3. Assign Site manager to Construction site. Construction site is only property - Katya
     
   2.3. Site manager Screen - Ivelina
   
