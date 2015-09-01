@@ -1,0 +1,35 @@
+hr.sign-line {
+    border: 1px solid #18bc9c;
+}
+
+.manager-settings {
+     text-align: center;
+     color: #fff;
+     background: #18bc9c;
+     text-transform: uppercase;
+     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+     font-size: 1em;
+ }
+
+.manager-settings .container {
+     padding-top: 180px;
+     padding-bottom: 50px;
+ }
+
+.manager-settings img {
+     display: block;
+     margin: 0 auto 20px;
+ }
+
+.manager-settings #greeting {
+     font-size: 1.3em;
+     text-transform: none;
+ }
+
+.manager-settings .manager-links a{
+     display: block;
+     color: white;
+     padding: 10px;
+     border-bottom: 1px solid white;
+
+ }
