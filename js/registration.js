@@ -1,6 +1,3 @@
-import 'plugins/bootstrap-theme/js/jquery.js';
-import {create} from 'js/factory.js';
-
 (function () {
 
     var CONSTANTS = {
