@@ -12,6 +12,9 @@ $(document).ready(function () {
             $("#login-nav-btn").addClass("active");
             template.loadTemplate("login.html", {}, " | Login");
         });
+        this.get('#/register', function () {
+            template.loadTemplate('registration.html', {}, " | Registration");
+        });
     });
     sammyApp.run('#/');
     //-------------- End of Site Routing ------------------//
