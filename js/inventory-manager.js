@@ -1,3 +1,5 @@
+import {create} from 'js/factory.js';
+
 (function() {
 
     var CONSTANTS = {
@@ -5,13 +7,15 @@
     };
 
     //Add Admin to DataBase
-    var admin = {
-        "InventoryList" : [],
-        "AvatarUrl" : 'https://cdn4.iconfinder.com/data/icons/SHINE7/general/400/administrator.png',
-        "RequestList" : [],
-        "ReservationList" : [],
-        "Username" : 'admin'
-    };
+    // var admin = {
+    //     "InventoryList" : [],
+    //     "AvatarUrl" : 'https://cdn4.iconfinder.com/data/icons/SHINE7/general/400/administrator.png',
+    //     "RequestList" : [],
+    //     "ReservationList" : [],
+    //     "Username" : 'admin'
+    // };
+    
+    var admin = create.admin('admin');
 
     var currentAdminCount;
     $.ajax({

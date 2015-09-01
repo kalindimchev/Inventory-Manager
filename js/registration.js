@@ -1,4 +1,5 @@
 import 'plugins/bootstrap-theme/js/jquery.js';
+import {create} from 'js/factory.js';
 
 (function () {
 
@@ -28,18 +29,20 @@ import 'plugins/bootstrap-theme/js/jquery.js';
                 var $userExist = $('#exist-username');
                 $userExist.css('display', 'none');
                 if (!result) {
-                    var newConfidentialData = {
-                        User: username,
-                        Pass: password
-                    };
+                    // var newConfidentialData = {
+                    //     User: username,
+                    //     Pass: password
+                    // };
 
-                    var newSiteManager = {
-                        "ConstructionSite": undefined,
-                        "InventoryList": [],
-                        "AvatarUrl": undefined,
-                        'RequestHistory': [],
-                        "Username": username
-                    };
+                    // var newSiteManager = {
+                    //     "ConstructionSite": undefined,
+                    //     "InventoryList": [],
+                    //     "AvatarUrl": undefined,
+                    //     'RequestHistory': [],
+                    //     "Username": username
+                    // };
+                    var newConfidentialData = create.confidentialData(username, password);
+                    var newSiteManager = create.siteManager(username);
 
                     $.ajax({
                         type: "POST",
