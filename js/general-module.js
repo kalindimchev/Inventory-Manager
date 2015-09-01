@@ -9,7 +9,7 @@ function generalModule() {
         /**
          * The purpose of the templateManager Object is to manage and load the partials templates in the index.html #container div
          * It caches the already requested templates
-         * and changes the page's
+         * and changes the page's title
          */
         templateManager = (function () {
             var currentPlayerId = 0,
