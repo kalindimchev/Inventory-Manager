@@ -13,7 +13,9 @@ $(document).ready(function () {
             template.loadTemplate("login.html", {}, " | Login");
         });
         this.get('#/register', function () {
-            template.loadTemplate('registration.html', {}, " | Registration");
+            template.loadTemplate('registration.html', {}, " | Registration", function () {
+                $('#form-registration-btn').on('click', regButtonFunction);
+            });
         });
     });
     sammyApp.run('#/');

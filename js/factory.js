@@ -15,9 +15,10 @@ var create = function () {
         };
 
     return {
-        admin: function (username) {
+        admin: function (username, constructionSite) {
             var newAdmin = Object.create(admin);
             newAdmin.Username = username;
+            newAdmin.ConstructionSite = constructionSite;
             return newAdmin;
         },
         siteManager: function (username) {

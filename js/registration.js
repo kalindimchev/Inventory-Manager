@@ -1,13 +1,15 @@
-(function () {
+var regButtonFunction = (function () {
 
     var CONSTANTS = {
         API_KEY: 'TNgVNbBpEOMFJ0T8'
     };
     
     //Register Site Manager
-    $('#registration-btn').on('click', function () {
+    function reg() {
         var username = $('.username').val();
         var password = $('.password').val();
+        var constructionSite = $('.construction-site').val();
+
         var result;
         $.ajax({
             url: 'http://api.everlive.com/v1/' + CONSTANTS.API_KEY + '/ConfidentialData',
@@ -26,19 +28,7 @@
                 var $userExist = $('#exist-username');
                 $userExist.css('display', 'none');
                 if (!result) {
-                    // var newConfidentialData = {
-                    //     User: username,
-                    //     Pass: password
-                    // };
-
-                    // var newSiteManager = {
-                    //     "ConstructionSite": undefined,
-                    //     "InventoryList": [],
-                    //     "AvatarUrl": undefined,
-                    //     'RequestHistory': [],
-                    //     "Username": username
-                    // };
-                    var newConfidentialData = create.confidentialData(username, password);
+                    var newConfidentialData = create.confidentialData(username, password, constructionSite);
                     var newSiteManager = create.siteManager(username);
 
                     $.ajax({
@@ -72,8 +62,7 @@
 
             })
 
-    });
-    
-    // debug :D
-    console.log('registration module loaded');
+    };
+
+    return reg;
 } ());

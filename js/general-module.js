@@ -47,7 +47,7 @@ function generalModule() {
                 }
             });
             Object.defineProperty(templateManager, 'loadTemplate', {
-                value: function (templateName, options, title) {
+                value: function (templateName, options, title, cb) {
                     options = options || {};
                     title = title || '';
                     document.title = CONSTANTS.titleBase + title;
@@ -58,6 +58,13 @@ function generalModule() {
                             var template = Handlebars.compile(templateHTML);
                             var html = template(options);
                             self.container.append(html);
+                            
+                            // added an optional callback to attach events to template elements
+                            // after they have been loaded
+                            
+                            if(typeof cb === 'function') {
+                                cb();
+                            } 
                         });
                     return this;
                 }
