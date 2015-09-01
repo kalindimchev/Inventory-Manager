@@ -1,25 +1,18 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-    var sammyApp = Sammy('#content', function() {
-        this.get('#/', function () {
-
+   var gModule = generalModule();
+    var template = gModule.getTemplateManager();
+    //---------------- Site Routing --------------------//
+    var sammyApp = Sammy('#container', function () {
+        //Home Page (Start Screen)
+        this.get('#/home', function () {
         });
-
+        //Sign in page (Login Screen)
         this.get('#/login', function () {
             $("#login-nav-btn").addClass("active");
-            console.log("login");
-            $("#container").empty();
-            templates.get('templates/login.html')
-                .then(function(templateHTML) {
-
-                    var template = Handlebars.compile(templateHTML);
-                    var html = template({});
-
-                    $('#container').append(html);
-                });
-
+            template.loadTemplate("login.html", {}, " | Login");
         });
     });
-
     sammyApp.run('#/');
+    //-------------- End of Site Routing ------------------//
 });
