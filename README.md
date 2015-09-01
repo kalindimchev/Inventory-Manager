@@ -136,5 +136,6 @@ TODO:
 
 DONE Tasks:
 
-Add all Content types in Telerik BackEnd Services
+- Add all Content types in Telerik BackEnd Services
+- Object for loading templates (in generalModule)
 
