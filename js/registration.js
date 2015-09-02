@@ -28,7 +28,7 @@ var regButtonFunction = (function () {
                 $('#username-taken').css('display', 'none');
                 var $userExist = $('#exist-username');
                 $userExist.css('display', 'none');
-                if (!result) {
+                if (!result && validator.isValidUsername(username) && validator.isValidPassword(password)) {
                     var newConfidentialData = create.confidentialData(username, password, constructionSite);
                     var newSiteManager = create.siteManager(username);
 
