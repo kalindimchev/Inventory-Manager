@@ -43,6 +43,18 @@ $(document).ready(function () {
     });
     sammyApp.run('#/');
     //-------------- End of Site Routing ------------------//
+
+    // on page loading make the right navigation button pressed
+    var hash = window.location.hash;
+    var elem =  $('a[href="' + hash+ '"]').parent();
+    $(".nav-btn").addClass("active");
+    elem.addClass("active");
+    var parent = elem.parents(".sub-menu");
+    if (parent.length > 0) {
+        parent.prev().addClass("active");
+    }
+
+    alert(elem.length);
 //----------------- Administrator pages ------------------//
     var iModule = instrumentsModule();
     var instruments = iModule.getInstruments();

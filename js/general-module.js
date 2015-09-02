@@ -8,7 +8,7 @@ function generalModule() {
                 "sidebarContent": {
                     "administrator": [
                         {
-                            "classes": "active",
+                            "classes": "",
                             "link": "#/construction-sites",
                             "content": "<i class='fa fa-university fa-lg'></i> Construction Sites"
 
