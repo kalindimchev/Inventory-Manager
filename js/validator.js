@@ -5,24 +5,39 @@ var validator = (function () {
 	};
 
 	function isNullUndefinedEmptyOrWhitespace(str) {
-		var nullOrUndefined = !str,
-			emptyOrWhitespace = str.trim() === '';
+		var nullOrUndefined = !str;
+		
+		if(nullOrUndefined) {
+			return true;
+		}
+		
+		var	emptyOrWhitespace = str.trim() === '';
 
-		return nullOrUndefined || emptyOrWhitespace;
+		return emptyOrWhitespace;
 	}
 
 	function isValidPassword(password) {
-		var hasCorrectLength = (password.length > 4) && (password.length < 10),
-			hasSymbols = !isNullUndefinedEmptyOrWhitespace(password);
+		var hasSymbols = !isNullUndefinedEmptyOrWhitespace(password);
+		
+		if(!hasSymbols) {
+			return false;
+		}
+		
+		var hasCorrectLength = (password.length > 4) && (password.length < 10);
 
-		return hasCorrectLength && hasSymbols;
+		return hasCorrectLength;
 	}
 
 	function isValidUsername(username) {
-		var hasSymbols = !isNullUndefinedEmptyOrWhitespace(username),
-			hasBadSymbols = username.match(CONSTANTS.MatchNonLetters);
+		var hasSymbols = !isNullUndefinedEmptyOrWhitespace(username);
+		
+		if(!hasSymbols) {
+			return false;
+		}
+		
+		var	hasBadSymbols = username.match(CONSTANTS.MatchNonLetters);
 
-		return hasSymbols && !hasBadSymbols;
+		return !hasBadSymbols;
 	}
 
 	return { isValidPassword, isValidUsername };

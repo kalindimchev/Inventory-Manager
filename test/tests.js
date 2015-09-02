@@ -73,3 +73,57 @@ describe('Template manager', function () {
 		console.log(template);
 	});
 });
+
+describe('Validator', function () {
+	
+	var vu = validator.isValidUsername,
+		vp = validator.isValidPassword;
+	
+	it('expects validator to return false with null, empty, whitespace and undefined usernames', function () {
+		var results = [vu(null), vu(), vu(''), vu('    ')];
+		
+		results.forEach(function (result) {
+			expect(result).to.be.false;
+		});
+	});
+	
+	it('expects validator to return false with usernames that contain bad characters', function () {
+		var badUsernames = ['domcho.minkov', 'kon_simeonov', 'dobi!boycheva', '><(((*)>'];
+		
+		badUsernames.forEach(function (name) {
+			expect(vu(name)).to.be.false;
+		});
+	});
+	
+	it('expect validator to return true with valid usernames', function (){
+		var validUsernames = ['Domcho Minkov', 'Kon Simeonov', 'Dobi Boycheva', 'Penka Karahadjimiteva'];
+		
+		validUsernames.forEach(function (name) {
+			expect(vu(name)).to.be.true;
+		});
+	});
+	
+	it('expects validator to return false with null, empty, whitespace and undefined passwords', function () {
+		var results = [vp(null), vp(), vp(''), vp('    ')];
+		
+		results.forEach(function (result) {
+			expect(result).to.be.false;
+		});
+	});
+	
+	it('expects validator to return false with password that has incorrect length', function () {
+		var badPasswords = ['gg', 'lol', 'js', 'T.T', new Array(16).join('hero' - 3) + ' batman', 'otivamee na kopon, shte se kulchim do sutrintaaaa, zaredeni sus emociyaaaaaaaaaaaaa'];
+		
+		badPasswords.forEach(function (name) {
+			expect(vp(name)).to.be.false;
+		});
+	});
+	
+	it('expect validator to return true with valid passwords', function (){
+		var validUsernames = ['koche', 'Pesh0', 'html5', 'penkA'];
+		
+		validUsernames.forEach(function (name) {
+			expect(vp(name)).to.be.true;
+		});
+	});
+});
