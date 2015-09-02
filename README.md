@@ -21,9 +21,9 @@ TODO:
     
         - Avatar URL
         
-        - Construction site inventory list - Item, Count - Christina
+        - Construction site inventory list - Item, Count 
         
-        - Request History - Item, Count, Status - Christina
+        - Request History - Item, Count, Status 
         
         - Construction site /property/
         
@@ -78,7 +78,7 @@ TODO:
     
       - Update Request status
       
-    2.2.4. Add Instrument to Inventory List - Create new Instrument item.
+    2.2.4. Add Instrument to Inventory List - Create new Instrument item. - Christina
     
       Request inventory list is reloading every 10 sec /for example/ or when Single Request change its status.
       
