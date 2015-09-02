@@ -28,3 +28,8 @@ html, body{
     min-height: 1000px;
     height: 1000px;
 }
+
+
+#username-taken {
+    color: red;
+}

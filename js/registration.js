@@ -8,7 +8,7 @@ var regButtonFunction = (function () {
     function reg() {
         var username = $('.username').val();
         var password = $('.password').val();
-        
+
         var registrationDataIsValid = validator.isValidUsername(username) && validator.isValidPassword(password);
         
         if(!registrationDataIsValid) {
@@ -34,11 +34,10 @@ var regButtonFunction = (function () {
         })
             .then(function (data) {
                 $('#username-taken').css('display', 'none');
-                var $userExist = $('#exist-username');
-                $userExist.css('display', 'none');
+
                 if (!result) {
-                    var newConfidentialData = create.confidentialData(username, password, constructionSite);
-                    var newSiteManager = create.siteManager(username);
+                    var newConfidentialData = create.confidentialData(username, password);
+                    var newSiteManager = create.siteManager(username, constructionSite);
 
                     $.ajax({
                         type: "POST",
@@ -66,13 +65,12 @@ var regButtonFunction = (function () {
                         }
                     });
                 } else {
-                    // $userExist.css('display', 'block');
                     $('#username-taken').css('display', 'block');
                 }
 
             })
 
-    };
+    }
 
     return reg;
 } ());

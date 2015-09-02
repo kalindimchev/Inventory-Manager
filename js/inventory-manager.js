@@ -3,15 +3,6 @@
     var CONSTANTS = {
         API_KEY : 'TNgVNbBpEOMFJ0T8'
     };
-
-    //Add Admin to DataBase
-    // var admin = {
-    //     "InventoryList" : [],
-    //     "AvatarUrl" : 'https://cdn4.iconfinder.com/data/icons/SHINE7/general/400/administrator.png',
-    //     "RequestList" : [],
-    //     "ReservationList" : [],
-    //     "Username" : 'admin'
-    // };
     
     var admin = create.admin('admin');
 
