@@ -12,7 +12,12 @@ var create = function () {
             "AvatarUrl": undefined,
             'RequestHistory': [],
             "Username": undefined
-        };
+        },
+        constructionSite = {
+            "Picture": null,
+            "Name": '',
+            "Description": ''
+        }
 
     return {
         admin: function (username) {
@@ -25,6 +30,13 @@ var create = function () {
             newManager.Username = username;
             newManager.ConstructionSite = constructionSite;
             return newManager;
+        },
+        constructionSite: function(photoUrl, name, description) {
+            var newSite = Object.create(constructionSite);
+            newSite.Picture = photoUrl;
+            newSite.Name = name;
+            newSite.Description = description;
+            return newSite;
         },
         confidentialData: function (username, password) {
             return {
