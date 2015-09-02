@@ -15,15 +15,15 @@ var create = function () {
         };
 
     return {
-        admin: function (username, constructionSite) {
+        admin: function (username) {
             var newAdmin = Object.create(admin);
             newAdmin.Username = username;
-            newAdmin.ConstructionSite = constructionSite;
             return newAdmin;
         },
-        siteManager: function (username) {
+        siteManager: function (username, constructionSite) {
             var newManager = Object.create(siteManager);
             newManager.Username = username;
+            newManager.ConstructionSite = constructionSite;
             return newManager;
         },
         confidentialData: function (username, password) {
