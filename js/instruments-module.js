@@ -36,6 +36,25 @@ function instrumentsModule() {
                     return true;
                 }
             });
+            Object.defineProperty(instruments, 'listInstruments', {
+                value: function (options) {
+                    var query = new Everlive.Query();
+                    var data = this.db.data('Instrument');
+                    if(options){
+
+                        switch(options){
+                            case 'available':
+                                query.where().gt('AvailableCount', 0);
+                                break;
+                            case 'unavailable':
+                                query.where().lt()('AvailableCount', 1);
+                        }}
+                        return data.get(query);
+
+
+
+                }
+            });
             return instruments;
         }());
 

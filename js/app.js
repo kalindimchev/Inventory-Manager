@@ -14,6 +14,8 @@ $(document).ready(function () {
         }
         $(this).addClass("active");
     });
+    var iModule = instrumentsModule();
+    var instruments = iModule.getInstruments();
     var gModule = generalModule(),
         template = gModule.getTemplateManager();
     //---------------- Site Routing --------------------//
@@ -58,8 +60,12 @@ $(document).ready(function () {
             });
         });
         this.get('#/instruments', function () {
+
+            instruments.listInstruments().then(function(result){
+                template.loadTemplate('instruments.html', {"instruments": result.result}, " | Instruments");
+            });
             template.loadTemplate("vertical-navigation.html", {"items": gModule.constants.sidebarContent.administrator}, "", $("#side-navigation-container"));
-            template.loadTemplate('instruments.html', {}, " | Instruments");
+           //
         });
         this.get('#/new-instrument', function () {
             template.loadTemplate("vertical-navigation.html", {"items": gModule.constants.sidebarContent.administrator}, "", $("#side-navigation-container"));
@@ -72,17 +78,14 @@ $(document).ready(function () {
     // on page loading make the right navigation button pressed
     var hash = window.location.hash;
     var elem =  $('a[href="' + hash+ '"]').parent();
-    $(".nav-btn").addClass("active");
+    $(".nav-btn").removeClass("active");
     elem.addClass("active");
     var parent = elem.parents(".sub-menu");
     if (parent.length > 0) {
         parent.prev().addClass("active");
     }
 
-    // alert(elem.length);
 //----------------- Administrator pages ------------------//
-    var iModule = instrumentsModule();
-    var instruments = iModule.getInstruments();
 
     // ------ manage new instrument form submission
     $("#container").on("click", "#new-instrument #submit", function (e) {

@@ -1,1 +1,26 @@
-<h1>Instruments list</h1>
+
+<button type="button" id="show-preview" class="btn btn-info active">Preview</button>
+<button type="button" id="show-html" class="btn btn-info">HTML</button>
+<button type="button" id="show-css" class="btn btn-info">CSS</button>
+
+
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Count</th>
+        <th>Available Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each instruments }}
+    <tr>
+        <td>{{Brand}}</td>
+        <td>{{Model}}</td>
+        <td>{{Count}}</td>
+        <td>{{AvailableCount}}</td>
+    </tr>
+    {{~/each}}
+    </tbody>
+</table>
