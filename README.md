@@ -100,6 +100,8 @@ TODO:
     
     - login button - check in Dictionary if there is User with given Username and Password - Kalin
     
+    - facebook login - Katya
+    
   2.2. Admin Screen
   
     2.2.1. Approve Request - Christina
