@@ -21,6 +21,7 @@ $(document).ready(function () {
     //---------------- Site Routing --------------------//
     var sammyApp = Sammy('#container', function () {
         //Home Page (Start Screen)
+        
         this.get('#/', function () {
         });
         //Sign in page (Login Screen)
@@ -28,31 +29,31 @@ $(document).ready(function () {
             $("#side-navigation-container").empty();
             template.loadTemplate("login.html", {}, " | Login");
         });
-        
-        this.get('#/auth', function (){
+
+        this.get('#/auth', function () {
             logUser()
-            .then(function(user){
-                console.log(user);
-                if(user) {
-                    
-                    localStorage.setItem('user', user.User);
-                    window.location.hash = '#/instruments';
-                    
-                    $('#sign-in-anchor').html(user.User).attr('href', '#/instuments');
-                    $('#reg-anchor').html('Sign out').attr('href', '#/logout');
-                } else {
-                    $('#invalid-name-or-pass').css('display', 'block').css('color', 'red');
-                }
-            });
+                .then(function (user) {
+                    console.log(user);
+                    if (user) {
+
+                        localStorage.setItem('user', user.User);
+                        window.location.hash = '#/instruments';
+
+                        $('#sign-in-anchor').html(user.User).attr('href', '#/instuments');
+                        $('#reg-anchor').html('Sign out').attr('href', '#/logout');
+                    } else {
+                        $('#invalid-name-or-pass').css('display', 'block').css('color', 'red');
+                    }
+                });
         });
-        
+
         this.get('#/logout', function () {
-             $('#sign-in-anchor').html('Sign in').attr('href', '#/login');
-             $('#reg-anchor').html('Register').attr('href', '#/register');
-             localStorage.removeItem('user');
-             window.location.hash = '#/login';
+            $('#sign-in-anchor').html('Sign in').attr('href', '#/login');
+            $('#reg-anchor').html('Register').attr('href', '#/register');
+            localStorage.removeItem('user');
+            window.location.hash = '#/login';
         });
-        
+
         this.get('#/register', function () {
             template.loadTemplate('registration.html', {}, " | Registration", null, function () {
                 $("#side-navigation-container").empty();
@@ -60,15 +61,19 @@ $(document).ready(function () {
             });
         });
         this.get('#/instruments', function () {
-
-            instruments.listInstruments().then(function(result){
-                template.loadTemplate('instruments.html', {"instruments": result.result}, " | Instruments");
+            
+            if(!localStorage.getItem('user')) {
+                return;
+            }
+            
+            instruments.listInstruments().then(function (result) {
+                template.loadTemplate('instruments.html', { "instruments": result.result }, " | Instruments");
             });
-            template.loadTemplate("vertical-navigation.html", {"items": gModule.constants.sidebarContent.administrator}, "", $("#side-navigation-container"));
-           //
+            template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
+            //
         });
         this.get('#/new-instrument', function () {
-            template.loadTemplate("vertical-navigation.html", {"items": gModule.constants.sidebarContent.administrator}, "", $("#side-navigation-container"));
+            template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
             template.loadTemplate('new-instrument.html', {}, " | New Instrument");
         });
     });
@@ -77,7 +82,7 @@ $(document).ready(function () {
 
     // on page loading make the right navigation button pressed
     var hash = window.location.hash;
-    var elem =  $('a[href="' + hash+ '"]').parent();
+    var elem = $('a[href="' + hash + '"]').parent();
     $(".nav-btn").removeClass("active");
     elem.addClass("active");
     var parent = elem.parents(".sub-menu");
@@ -85,7 +90,7 @@ $(document).ready(function () {
         parent.prev().addClass("active");
     }
 
-//----------------- Administrator pages ------------------//
+    //----------------- Administrator pages ------------------//
 
     // ------ manage new instrument form submission
     $("#container").on("click", "#new-instrument #submit", function (e) {
@@ -95,12 +100,12 @@ $(document).ready(function () {
         var brand = $("#new-instrument #brand").val(),
             model = $("#new-instrument #model").val(),
             count = $("#new-instrument #count").val(),
-        // try to create the instrument
+            // try to create the instrument
             result = instruments.create(brand, model, count);
         //if the creation was successful redirect to instruments page
         if (result) {
             window.location.hash = '#/instruments';
         }
     });
-//----------------- End Of Administrator pages ------------------//
+    //----------------- End Of Administrator pages ------------------//
 });
