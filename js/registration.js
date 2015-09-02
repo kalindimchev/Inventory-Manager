@@ -8,6 +8,14 @@ var regButtonFunction = (function () {
     function reg() {
         var username = $('.username').val();
         var password = $('.password').val();
+        
+        var registrationDataIsValid = validator.isValidUsername(username) && validator.isValidPassword(password);
+        
+        if(!registrationDataIsValid) {
+            console.log('todor todor.. TODOR');
+            return;
+        }
+        
         var constructionSite = $('.construction-site').val();
         console.log('hodor hodor.. HODOR');
         var result;
@@ -28,7 +36,7 @@ var regButtonFunction = (function () {
                 $('#username-taken').css('display', 'none');
                 var $userExist = $('#exist-username');
                 $userExist.css('display', 'none');
-                if (!result && validator.isValidUsername(username) && validator.isValidPassword(password)) {
+                if (!result) {
                     var newConfidentialData = create.confidentialData(username, password, constructionSite);
                     var newSiteManager = create.siteManager(username);
 
