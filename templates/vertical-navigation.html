@@ -13,11 +13,11 @@
             </li>
             <ul class="sub-menu collapse" id="{{@index}}">
                 {{#each subitems}}
-                <li class="collapsed {{#if classes}} {{classes}} {{/if}}"><a href="{{link}}">{{{content}}}</a></li>
+                <li class="collapsed nav-btn {{#if classes}} {{classes}} {{/if}}"><a href="{{link}}">{{{content}}}</a></li>
                 {{~/each}}
             </ul>
             {{else}}
-            <li class="{{#if classes}} {{classes}} {{/if}}">
+            <li class="nav-btn {{#if classes}} {{classes}} {{/if}}">
             <a href="{{link}}">
             {{{content}}}
             </a>
