@@ -4,7 +4,33 @@ function generalModule() {
             CONSTANTS = {
                 "container": "#container",
                 "templatesFolder": "templates/",
-                "titleBase": "Inventory Manager"
+                "titleBase": "Inventory Manager",
+                "sidebarContent": {
+                    "administrator": [
+                        {
+                            "classes": "active",
+                            "link": "#/construction-sites",
+                            "content": "<i class='fa fa-university fa-lg'></i> Construction Sites"
+
+                        },
+                        {
+                            "link": "#/instruments",
+                            "content": "<i class='fa fa-cogs fa-lg'></i> Instruments",
+                            "subitems": [
+                                {
+                                    "classes": "",
+                                    "link": "#/instruments",
+                                    "content": " List"
+                                },
+                                {
+                                    "link": "#/new-instrument",
+                                    "content": " Add Instrument"
+                                },
+                            ]
+                        }
+                    ],
+                    "manager": []
+                }
             };
         /**
          * The purpose of the templateManager Object is to manage and load the partials templates in the index.html #container div
@@ -28,7 +54,7 @@ function generalModule() {
                     var promise = new Promise(function(resolve, reject) {
                         var url = CONSTANTS.templatesFolder + templateName;
                         if (self.templates[templateName]) {
-                            resolve(this.templates[templateName]);
+                            resolve(self.templates[templateName]);
                             return;
                         }
                         $.ajax({
@@ -47,17 +73,18 @@ function generalModule() {
                 }
             });
             Object.defineProperty(templateManager, 'loadTemplate', {
-                value: function (templateName, options, title, cb) {
+                value: function (templateName, options, title, container,cb) {
                     options = options || {};
                     title = title || '';
+                    container = container || this.container;
                     document.title = CONSTANTS.titleBase + title;
                     var self = this;
-                    self.container.empty();
+                    container.empty();
                     self.getTemplate(templateName)
                         .then(function (templateHTML) {
                             var template = Handlebars.compile(templateHTML);
                             var html = template(options);
-                            self.container.append(html);
+                            container.append(html);
                             
                             // added an optional callback to attach events to template elements
                             // after they have been loaded
@@ -76,7 +103,8 @@ function generalModule() {
         return {
             getTemplateManager: function () {
                 return Object.create(templateManager).init();
-            }
+            },
+            constants: CONSTANTS
         };
     }());
     return generalModule;
