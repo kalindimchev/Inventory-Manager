@@ -1,6 +1,21 @@
 $(document).ready(function () {
-   var gModule = generalModule();
-    var template = gModule.getTemplateManager();
+    // make pressed top navigation bar button pressed
+    $("#main nav").on("click", ".nav-btn", function () {
+        $("#main nav .nav-btn").removeClass("active");
+        $(this).addClass("active");
+    });
+    // make pressed side navigation bar button pressed
+    $("#side-navigation-container").on("click", ".nav-btn", function () {
+        $("#side-navigation-container li").removeClass("active");
+        $("#side-navigation-container .nav-btn").removeClass("active");
+        var parent = $(this).parents(".sub-menu");
+        if (parent.length > 0) {
+            parent.prev().addClass("active");
+        }
+        $(this).addClass("active");
+    });
+    var gModule = generalModule(),
+        template = gModule.getTemplateManager();
     //---------------- Site Routing --------------------//
     var sammyApp = Sammy('#container', function () {
         //Home Page (Start Screen)
@@ -9,24 +24,43 @@ $(document).ready(function () {
         //Sign in page (Login Screen)
         this.get('#/login', function () {
             $("#side-navigation-container").empty();
-            $("#register-nav-btn").removeClass("active");
-            $("#login-nav-btn").addClass("active");
             template.loadTemplate("login.html", {}, " | Login");
         });
         this.get('#/register', function () {
-            template.loadTemplate('registration.html', {}, " | Registration", null,function () {
+            template.loadTemplate('registration.html', {}, " | Registration", null, function () {
                 $("#side-navigation-container").empty();
-                $("#login-nav-btn").removeClass("active");
-                $("#register-nav-btn").addClass("active");
                 $('#form-registration-btn').on('click', regButtonFunction);
             });
         });
         this.get('#/instruments', function () {
-
-                template.loadTemplate("vertical-navigation.html", {"items": gModule.constants.sidebarContent.administrator}, "", $("#side-navigation-container"));
-                template.loadTemplate('instruments.html', {}, " | Instruments");
+            template.loadTemplate("vertical-navigation.html", {"items": gModule.constants.sidebarContent.administrator}, "", $("#side-navigation-container"));
+            template.loadTemplate('instruments.html', {}, " | Instruments");
+        });
+        this.get('#/new-instrument', function () {
+            template.loadTemplate("vertical-navigation.html", {"items": gModule.constants.sidebarContent.administrator}, "", $("#side-navigation-container"));
+            template.loadTemplate('new-instrument.html', {}, " | New Instrument");
         });
     });
     sammyApp.run('#/');
     //-------------- End of Site Routing ------------------//
+//----------------- Administrator pages ------------------//
+    var iModule = instrumentsModule();
+    var instruments = iModule.getInstruments();
+
+    // ------ manage new instrument form submission
+    $("#container").on("click", "#new-instrument #submit", function (e) {
+        // prevent page reloading and default button clicking action
+        e.preventDefault();
+        //get the form values
+        var brand = $("#new-instrument #brand").val(),
+            model = $("#new-instrument #model").val(),
+            count = $("#new-instrument #count").val(),
+        // try to create the instrument
+            result = instruments.create(brand, model, count);
+        //if the creation was successful redirect to instruments page
+        if (result) {
+            window.location.hash = '#/instruments';
+        }
+    });
+//----------------- End Of Administrator pages ------------------//
 });
