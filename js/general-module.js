@@ -38,8 +38,7 @@ function generalModule() {
          * and changes the page's title
          */
         templateManager = (function () {
-            var currentPlayerId = 0,
-                templateManager = Object.create({});
+            var templateManager = Object.create({});
 
             Object.defineProperty(templateManager, 'init', {
                 value: function () {
