@@ -11,19 +11,19 @@ TODO:
     
         - Avatar URL
         
-        - Total Inventory List - Item, Total Count, Available Count, Not Available Count
+        - Total Inventory List - Item, Total Count, Available Count, Not Available Count - Christina 
         
-        - Request List - Item, From Whom, Count, Status
+        - Request List - Item, From Whom, Count, Status - Christina
         
-        - Reservation List - Includes all Instruments that are transfered in Construction Sites
+        - Reservation List - Includes all Instruments that are transfered in Construction Sites - Christina 
         
     1.1.2. Site Manager
     
         - Avatar URL
         
-        - Construction site inventory list - Item, Count
+        - Construction site inventory list - Item, Count - Christina
         
-        - Request History - Item, Count, Status
+        - Request History - Item, Count, Status - Christina
         
         - Construction site /property/
         
@@ -137,5 +137,9 @@ TODO:
 DONE Tasks:
 
 - Add all Content types in Telerik BackEnd Services
+- Login and redirect
+- Register and redirect
 - Object for loading templates (in generalModule)
+- List instrument in admin's profile
+- Add new instrument from admin rofile
 
