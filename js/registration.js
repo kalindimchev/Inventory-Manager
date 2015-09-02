@@ -9,7 +9,7 @@ var regButtonFunction = (function () {
         var username = $('.username').val();
         var password = $('.password').val();
         var constructionSite = $('.construction-site').val();
-
+        console.log('hodor hodor.. HODOR');
         var result;
         $.ajax({
             url: 'http://api.everlive.com/v1/' + CONSTANTS.API_KEY + '/ConfidentialData',
@@ -25,6 +25,7 @@ var regButtonFunction = (function () {
             }
         })
             .then(function (data) {
+                $('#username-taken').css('display', 'none');
                 var $userExist = $('#exist-username');
                 $userExist.css('display', 'none');
                 if (!result) {
@@ -57,7 +58,8 @@ var regButtonFunction = (function () {
                         }
                     });
                 } else {
-                    $userExist.css('display', 'block');
+                    // $userExist.css('display', 'block');
+                    $('#username-taken').css('display', 'block');
                 }
 
             })
