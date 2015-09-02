@@ -26,6 +26,31 @@ $(document).ready(function () {
             $("#side-navigation-container").empty();
             template.loadTemplate("login.html", {}, " | Login");
         });
+        
+        this.get('#/auth', function (){
+            logUser()
+            .then(function(user){
+                console.log(user);
+                if(user) {
+                    
+                    localStorage.setItem('user', user.User);
+                    window.location.hash = '#/instruments';
+                    
+                    $('#sign-in-anchor').html(user.User).attr('href', '#/instuments');
+                    $('#reg-anchor').html('Sign out').attr('href', '#/logout');
+                } else {
+                    $('#invalid-name-or-pass').css('display', 'block').css('color', 'red');
+                }
+            });
+        });
+        
+        this.get('#/logout', function () {
+             $('#sign-in-anchor').html('Sign in').attr('href', '#/login');
+             $('#reg-anchor').html('Register').attr('href', '#/register');
+             localStorage.removeItem('user');
+             window.location.hash = '#/login';
+        });
+        
         this.get('#/register', function () {
             template.loadTemplate('registration.html', {}, " | Registration", null, function () {
                 $("#side-navigation-container").empty();
@@ -54,7 +79,7 @@ $(document).ready(function () {
         parent.prev().addClass("active");
     }
 
-    alert(elem.length);
+    // alert(elem.length);
 //----------------- Administrator pages ------------------//
     var iModule = instrumentsModule();
     var instruments = iModule.getInstruments();
