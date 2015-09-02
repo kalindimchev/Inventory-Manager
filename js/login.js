@@ -3,7 +3,7 @@ var logUser = function () {
         API_KEY: 'TNgVNbBpEOMFJ0T8'
     };
 
-	function login() {
+	function login(callback) {
 
 		var username = $('.username').val(),
 			password = $('.password').val();
@@ -17,6 +17,9 @@ var logUser = function () {
 					resolve(data.Result.filter(function (user) {
 						return (user.User === username) && (user.Pass === password);
 					})[0]);
+					if(typeof callback === 'function') {
+						callback();
+					}
 				},
 				contentType: 'application\json',
 				error: function (err) {

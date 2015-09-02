@@ -39,6 +39,12 @@ var validator = (function () {
 
 		return !hasBadSymbols;
 	}
-
-	return { isValidPassword, isValidUsername };
+	
+	function hasUniqueBrandModelPair(instrument, instrumentCollection) {
+		return !instrumentCollection.some(function (instr) {
+			return (instr.Brand === instrument.Brand) && (instr.Model === instrument.Model);
+		});
+	}
+	
+	return { isValidPassword, isValidUsername, hasUniqueBrandModelPair };
 } ());
