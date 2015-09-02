@@ -66,7 +66,7 @@ $(document).ready(function () {
             if(!localStorage.getItem('user')) {
                 return;
             }
-            
+
             instruments.listInstruments().then(function (result) {
                 template.loadTemplate('instruments.html', { "instruments": result.result }, " | Instruments");
             });
