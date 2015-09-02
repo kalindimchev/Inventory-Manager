@@ -23,7 +23,7 @@ var validator = (function () {
 			return false;
 		}
 		
-		var hasCorrectLength = (password.length > 4) && (password.length < 10);
+		var hasCorrectLength = (password.length > 4) && (password.length < 30);
 
 		return hasCorrectLength;
 	}
