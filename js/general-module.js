@@ -79,7 +79,7 @@ function generalModule() {
                     document.title = CONSTANTS.titleBase + title;
                     var self = this;
                     if(templateName == 'vertical-navigation.html'){
-                        self.container.css('margin-left', '300px');
+                        self.container.css('margin-left', '310px');
                     }
                     container.empty();
                     self.getTemplate(templateName)
