@@ -20,6 +20,7 @@ $(document).ready(function () {
         template = gModule.getTemplateManager();
     //---------------- Site Routing --------------------//
     var sammyApp = Sammy('#container', function () {
+
         //Home Page (Start Screen)
         
         this.get('#/', function () {
@@ -107,5 +108,20 @@ $(document).ready(function () {
             window.location.hash = '#/instruments';
         }
     });
-    //----------------- End Of Administrator pages ------------------//
+
+
+$("#container").on("click", "#instruments-admin-page .instruments-filter", function(e){
+    $(".instruments-filter").removeClass('active');
+    $(this).addClass('active');
+    e.preventDefault();
+    var type = $(this).attr('id');
+    if(type == 'all'){
+        type = null;
+    }
+
+    instruments.listInstruments(type).then(function(result){
+        template.loadTemplate('instruments.html', {"instruments": result.result}, " | Instruments");
+    });
+});
+
 });

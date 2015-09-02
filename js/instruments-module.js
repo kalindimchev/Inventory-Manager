@@ -47,7 +47,8 @@ function instrumentsModule() {
                                 query.where().gt('AvailableCount', 0);
                                 break;
                             case 'unavailable':
-                                query.where().lt()('AvailableCount', 1);
+                                query.where().lt('AvailableCount', 1);
+                                break;
                         }}
                         return data.get(query);
 
