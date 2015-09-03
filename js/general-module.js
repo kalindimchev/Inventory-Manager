@@ -29,7 +29,20 @@ function generalModule() {
                             ]
                         }
                     ],
-                    "manager": []
+                    "manager": [
+                        {
+                            "classes": "",
+                            "link": "#/construction-site",
+                            "content": "<i class='fa fa-university fa-lg'></i> Construction Site"
+
+                        },
+                        {
+                            "classes": "",
+                            "link": "#/instruments",
+                            "content": "<i class='fa fa-cogs fa-lg'></i> Instruments"
+
+                        },
+                    ]
                 }
             };
         /**
