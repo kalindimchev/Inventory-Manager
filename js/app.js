@@ -9,6 +9,8 @@ function checkIfLogged(){
         logout();
         window.location.hash = '#/login';
         return false;
+    } else {
+        return true;
     }
 }
 function loadSideMenu(){
