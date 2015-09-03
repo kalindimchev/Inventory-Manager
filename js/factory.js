@@ -41,7 +41,8 @@ var create = function () {
         confidentialData: function (username, password) {
             return {
                 User: username,
-                Pass: password
+                Pass: password,
+                Role: 'manager'
             };
         }
     }
