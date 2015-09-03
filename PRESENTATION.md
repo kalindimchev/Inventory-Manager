@@ -37,14 +37,14 @@ We used:
 		
 	- _app.js_: responsible for the routing
 			
-	- login.js: responsible for logging the user
+	- _login.js_: responsible for logging the user
 			
-	- registration.js: responsible for registration
+	- _registration.js_: responsible for registration
 			
-	- general-module.js: responsible for template loading
+	- _general-module.js_: responsible for template loading
 			
-	- inventory-module.js: ??
+	- _inventory-module.js_: ??
 			
-	- factory.js: provides model creation
+	- _factory.js_: provides model creation
 			
-	- validator.js: provides validation for other modules
+	- _validator.js_: provides validation for other modules
