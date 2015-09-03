@@ -154,7 +154,7 @@ var generalModule = (function generalModule() {
             Object.defineProperty(generalManager, 'loadTablePlugin', {
                 value: function () {
                         setTimeout(function(){     if(typeof oTable != "undefined"){ oTable.fnDestroy();}
-                            oTable = $('.datatable').dataTable()}, 100);
+                            oTable = $('.datatable').dataTable()}, 200);
                         ;
 
                 }

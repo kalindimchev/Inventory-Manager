@@ -97,53 +97,7 @@ $(document).ready(function () {
     });
     //--------------- End of Login Page---------------------//
 
-    //----------------- Administrator pages ------------------//
-
-    // ------ manage new instrument form submission
-    $("#container").on("click", "#new-instrument #submit", function (e) {
-        // prevent page reloading and default button clicking action
-        e.preventDefault();
-        //get the form values
-        var brand = $("#new-instrument #brand").val(),
-            model = $("#new-instrument #model").val(),
-            count = $("#new-instrument #count").val(),
-            // try to create the instrument
-            result = instrumentsManager.create(brand, model, count);
-        //if the creation was successful redirect to instruments page
-        if (typeof result !== "object") {
-            //window.location.hash = '#/instruments';
-            alert(result.toString());
-        } else {
-            result.then(function(){
-                window.location.hash = '#/instruments';
-            }, function(error){
-                alert(JSON.stringify(error));
-            })
-        }
-    });
-
-
-$("#container").on("click", "#instruments-admin-page .instruments-filter", function(e){
-    $(".instruments-filter").removeClass('active');
-    $(this).addClass('active');
-    e.preventDefault();
-    var type = $(this).attr('id');
-    if(type == 'all'){
-        type = null;
-    }
-
-    instrumentsManager.listInstruments(type).then(function(result){
-        var options = {
-            "instruments": result.result
-        };
-
-        var userRole = localStorage.getItem('userRole');
-        if(userRole == 'admin'){
-            options['admin']  = true;
-        }
-        templateManager.loadTemplate('instruments.html', options, " | Instruments", null, generalManager.loadTablePlugin());
-    });
-
-});
+instrumentsManager.submitCreateForm();
+instrumentsManager.filterTableOnButtonClick();
 
 });
