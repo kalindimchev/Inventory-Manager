@@ -12,11 +12,11 @@
         type: "GET",
         success: function(data){
             currentAdminCount = data.Count;
-            console.log(data.Count);
+//            console.log(data.Count);
 
         },
         error: function(error){
-            alert('GET Fail');
+            //alert('GET Fail');
         }
     })
         .then(function(data) {
@@ -29,10 +29,10 @@
                     contentType: "application/json",
                     data: JSON.stringify(admin),
                     success: function(data) {
-                        alert('Admin added');
+                        //alert('Admin added');
                     },
                     error: function(error) {
-                        alert('Admin existing');
+                        //alert('Admin existing');
                     }
                 });
             }

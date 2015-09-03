@@ -58,7 +58,8 @@ var regButtonFunction = (function () {
                         contentType: "application/json",
                         data: JSON.stringify(newSiteManager),
                         success: function (data) {
-                            console.log('New Site Manager Added')
+                            console.log('New Site Manager Added');
+                            window.location.hash = '#/login';
                         },
                         error: function (error) {
                             alert('Post Site Manager Fail');

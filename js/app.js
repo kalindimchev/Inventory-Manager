@@ -1,3 +1,20 @@
+function authenticateUser(){
+    logUser()
+        .then(function (user) {
+            console.log(user);
+            if (user) {
+
+                localStorage.setItem('user', user.User);
+                window.location.hash = '#/instruments';
+
+                $('#sign-in-anchor').html(user.User).attr('href', '#/instuments');
+                $('#reg-anchor').html('Sign out').attr('href', '#/logout');
+            } else {
+                $('#invalid-name-or-pass').css('display', 'block').css('color', 'red');
+            }
+        });
+}
+
 $(document).ready(function () {
     var CONSTANTS = {
         API_KEY: 'TNgVNbBpEOMFJ0T8'
@@ -35,22 +52,6 @@ $(document).ready(function () {
             template.loadTemplate("login.html", {}, " | Login");
         });
 
-        this.get('#/auth', function () {
-            logUser()
-                .then(function (user) {
-                    console.log(user);
-                    if (user) {
-
-                        localStorage.setItem('user', user.User);
-                        window.location.hash = '#/instruments';
-
-                        $('#sign-in-anchor').html(user.User).attr('href', '#/instuments');
-                        $('#reg-anchor').html('Sign out').attr('href', '#/logout');
-                    } else {
-                        $('#invalid-name-or-pass').css('display', 'block').css('color', 'red');
-                    }
-                });
-        });
 
         this.get('#/logout', function () {
             $('#sign-in-anchor').html('Sign in').attr('href', '#/login');
@@ -66,7 +67,7 @@ $(document).ready(function () {
             });
         });
         this.get('#/instruments', function () {
-            alert(localStorage.getItem('user') === 'admin');
+            //alert(localStorage.getItem('user') === 'admin');
             var currentUsername = localStorage.getItem('user');
 
             if(!currentUsername) {
@@ -95,7 +96,7 @@ $(document).ready(function () {
                         template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
                     },
                     error: function(error){
-                        alert(JSON.stringify(error));
+                        //alert(JSON.stringify(error));
                     }
                 });
 
@@ -123,6 +124,16 @@ $(document).ready(function () {
         parent.prev().addClass("active");
     }
 
+    //--------------- Login Page---------------------//
+    $("#container").on("click", "#login-page #login-btn", function(e){
+        e.preventDefault();
+        authenticateUser();
+    });
+    //--------------- End of Login Page---------------------//
+
+    //------------- Registration Page -------------------------//
+
+    //------------- End Of Registration Page -------------------------//
     //----------------- Administrator pages ------------------//
 
     // ------ manage new instrument form submission
