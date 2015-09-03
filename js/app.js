@@ -1,19 +1,18 @@
 function authenticateUser(){
     logUser()
         .then(function (user) {
-            console.log(user);
             if (user) {
 
                 localStorage.setItem('user', user.User);
-                window.location.hash = '#/instruments';
-
                 $('#sign-in-anchor').html(user.User).attr('href', '#/instuments');
                 $('#reg-anchor').html('Sign out').attr('href', '#/logout');
+                window.location.hash = '#/instruments';
             } else {
                 $('#invalid-name-or-pass').css('display', 'block').css('color', 'red');
             }
         });
 }
+
 
 $(document).ready(function () {
     var CONSTANTS = {
