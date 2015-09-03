@@ -44,6 +44,7 @@ function authenticateUser(){
 
                 localStorage.setItem('user', user.User);
                 localStorage.setItem('userRole', user.Role);
+                $('#container').empty();
                 $('#sign-in-anchor').html(user.User).attr('href', '#/instuments');
                 $('#reg-anchor').html('Sign out').attr('href', '#/logout');
                 loadSideMenu();
