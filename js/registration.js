@@ -5,15 +5,19 @@ var regButtonFunction = (function () {
     };
     
     //Register Site Manager
-    function reg() {
+    function reg(cb) {
         var username = $('.username').val();
         var password = $('.password').val();
-
+        console.log(username, password);
         var registrationDataIsValid = validator.isValidUsername(username) && validator.isValidPassword(password);
         
         if(!registrationDataIsValid) {
-            alert("Unsuccessful Registration! Please Try again");
+            // alert("Unsuccessful Registration! Please Try again");
             return;
+        }
+        
+        if(typeof cb === 'function') {
+            cb();
         }
         
         var constructionSite = $('.construction-site').val();

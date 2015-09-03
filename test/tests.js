@@ -18,7 +18,7 @@ describe('Templates tests', function () {
 		
 		$.ajax.restore();
 	});
-
+	
 });
 
 describe('Factory tests', function () {
@@ -82,6 +82,13 @@ describe('Template manager', function () {
 
 		expect(template).to.exist;
 		console.log(template);
+	});
+	
+	it('expects init function of template manager to correctly initialize the manager', function (){
+		var manager = generalModule().getTemplateManager().init();
+		
+		expect(typeof manager.templates).to.equal('object');
+		expect(typeof manager.container).to.equal('object');
 	});
 });
 
@@ -185,9 +192,9 @@ describe('Validator', function () {
 	});
 });
 
-describe('Query tests', function () {
+describe('Login tests', function () {
 
-	it('expects loggin function to use a GET query to authenticate user', function () {
+	it('expects login function to use a GET query to authenticate user', function () {
 		sinon.stub($, 'ajax');
 		logUser(sinon.spy());
 		expect($.ajax.calledWithMatch({
@@ -197,5 +204,24 @@ describe('Query tests', function () {
 		$.ajax.restore();
 	});
 
+});
+
+describe('Registration tests', function () {
+	
+	it('expects registration to query the db with method POST with provided valid name and password', function () {
+		var invalidName = '...';
+		var invalidPass = '###';
+		
+		$('<input>').css('display', 'none').add('username').attr('value', invalidName).appendTo('#mocha');
+		$('<input>').css('display', 'none').addClass('password').attr('value', invalidPass).appendTo('#mocha');
+		
+		sinon.stub($, 'ajax');
+		
+		regButtonFunction(sinon.spy());
+		
+		expect($.ajax.calledOnce).to.be.false;
+		
+		$.ajax.restore();
+	});
 	
 });
