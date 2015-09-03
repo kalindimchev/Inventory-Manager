@@ -1,3 +1,29 @@
+var iModule = instrumentsModule();
+var instruments = iModule.getInstruments();
+var gModule = generalModule(),
+    template = gModule.getTemplateManager();
+
+function loadSideMenu(){
+    var user = localStorage.getItem('user');
+    if(user){
+        $('#sign-in-anchor').html(user).attr('href', '#/instuments');
+        $('#reg-anchor').html('Sign out').attr('href', '#/logout');
+    if(user === 'admin'){
+
+        template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
+    } else {
+
+        template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.manager }, "", $("#side-navigation-container"));
+
+    }}
+}
+
+function logout(){
+    $("#side-navigation-container").empty();
+    $('#sign-in-anchor').html('Sign in').attr('href', '#/login');
+    $('#reg-anchor').html('Register').attr('href', '#/register');
+    localStorage.removeItem('user');
+}
 function authenticateUser(){
     logUser()
         .then(function (user) {
@@ -6,6 +32,7 @@ function authenticateUser(){
                 localStorage.setItem('user', user.User);
                 $('#sign-in-anchor').html(user.User).attr('href', '#/instuments');
                 $('#reg-anchor').html('Sign out').attr('href', '#/logout');
+                loadSideMenu();
                 window.location.hash = '#/instruments';
             } else {
                 $('#invalid-name-or-pass').css('display', 'block').css('color', 'red');
@@ -34,28 +61,24 @@ $(document).ready(function () {
         }
         $(this).addClass("active");
     });
-    var iModule = instrumentsModule();
-    var instruments = iModule.getInstruments();
-    var gModule = generalModule(),
-        template = gModule.getTemplateManager();
+
     //---------------- Site Routing --------------------//
     var sammyApp = Sammy('#container', function () {
 
         //Home Page (Start Screen)
-        
+
         this.get('#/', function () {
         });
         //Sign in page (Login Screen)
         this.get('#/login', function () {
+            logout();
             $("#side-navigation-container").empty();
             template.loadTemplate("login.html", {}, " | Login");
         });
 
 
         this.get('#/logout', function () {
-            $('#sign-in-anchor').html('Sign in').attr('href', '#/login');
-            $('#reg-anchor').html('Register').attr('href', '#/register');
-            localStorage.removeItem('user');
+           logout();
             window.location.hash = '#/login';
         });
 
@@ -77,8 +100,7 @@ $(document).ready(function () {
                 instruments.listInstruments().then(function (result) {
                     template.loadTemplate('instruments.html', { "instruments": result.result }, " | Instruments");
                 });
-                template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
-            } else {
+                  } else {
                 var filter = { "Username" : currentUsername };
 
                 $.ajax({
@@ -92,8 +114,7 @@ $(document).ready(function () {
                         instruments.listInstruments().then(function (result) {
                             template.loadTemplate('site-manager-instruments.html', { "instruments": data.Result[0].InventoryList }, " | Instruments");
                         });
-                        template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
-                    },
+                             },
                     error: function(error){
                         //alert(JSON.stringify(error));
                     }
@@ -106,11 +127,11 @@ $(document).ready(function () {
             //
         });
         this.get('#/new-instrument', function () {
-            template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
-            template.loadTemplate('new-instrument.html', {}, " | New Instrument");
+                template.loadTemplate('new-instrument.html', {}, " | New Instrument");
         });
     });
     sammyApp.run('#/');
+    loadSideMenu();
     //-------------- End of Site Routing ------------------//
 
     // on page loading make the right navigation button pressed
@@ -130,9 +151,6 @@ $(document).ready(function () {
     });
     //--------------- End of Login Page---------------------//
 
-    //------------- Registration Page -------------------------//
-
-    //------------- End Of Registration Page -------------------------//
     //----------------- Administrator pages ------------------//
 
     // ------ manage new instrument form submission
