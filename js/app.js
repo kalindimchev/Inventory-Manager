@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    var CONSTANTS = {
+        API_KEY: 'TNgVNbBpEOMFJ0T8'
+    };
+
     // make pressed top navigation bar button pressed
     $("#main nav").on("click", ".nav-btn", function () {
         $("#main nav .nav-btn").removeClass("active");
@@ -62,15 +66,43 @@ $(document).ready(function () {
             });
         });
         this.get('#/instruments', function () {
-            
-            if(!localStorage.getItem('user')) {
+            alert(localStorage.getItem('user') === 'admin');
+            var currentUsername = localStorage.getItem('user');
+
+            if(!currentUsername) {
                 return;
             }
 
-            instruments.listInstruments().then(function (result) {
-                template.loadTemplate('instruments.html', { "instruments": result.result }, " | Instruments");
-            });
-            template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
+            if (currentUsername === 'admin') {
+                instruments.listInstruments().then(function (result) {
+                    template.loadTemplate('instruments.html', { "instruments": result.result }, " | Instruments");
+                });
+                template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
+            } else {
+                var filter = { "Username" : currentUsername };
+
+                $.ajax({
+                    url: 'http://api.everlive.com/v1/' + CONSTANTS.API_KEY + '/SiteManager',
+                    type: "GET",
+                    headers: {"X-Everlive-Filter" : JSON.stringify(filter) },
+                    success: function(data){
+                        console.log('Dataaaa' + JSON.stringify(data));
+                        console.log(data.Result[0].InventoryList);
+
+                        instruments.listInstruments().then(function (result) {
+                            template.loadTemplate('site-manager-instruments.html', { "instruments": data.Result[0].InventoryList }, " | Instruments");
+                        });
+                        template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
+                    },
+                    error: function(error){
+                        alert(JSON.stringify(error));
+                    }
+                });
+
+
+            }
+
+
             //
         });
         this.get('#/new-instrument', function () {
