@@ -3,12 +3,21 @@ var instruments = iModule.getInstruments();
 var gModule = generalModule(),
     template = gModule.getTemplateManager();
 
+function checkIfLogged(){
+    var user = localStorage.getItem('user');
+    if(!user) {
+        logout();
+        window.location.hash = '#/login';
+        return false;
+    }
+}
 function loadSideMenu(){
     var user = localStorage.getItem('user');
+    var userRole = localStorage.getItem('userRole');
     if(user){
         $('#sign-in-anchor').html(user).attr('href', '#/instuments');
         $('#reg-anchor').html('Sign out').attr('href', '#/logout');
-    if(user === 'admin'){
+    if(userRole === 'admin'){
 
         template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
     } else {
@@ -20,9 +29,11 @@ function loadSideMenu(){
 
 function logout(){
     $("#side-navigation-container").empty();
+    $("#container").empty();
     $('#sign-in-anchor').html('Sign in').attr('href', '#/login');
     $('#reg-anchor').html('Register').attr('href', '#/register');
     localStorage.removeItem('user');
+    localStorage.removeItem('userRole');
 }
 function authenticateUser(){
     logUser()
@@ -30,6 +41,7 @@ function authenticateUser(){
             if (user) {
 
                 localStorage.setItem('user', user.User);
+                localStorage.setItem('userRole', user.Role);
                 $('#sign-in-anchor').html(user.User).attr('href', '#/instuments');
                 $('#reg-anchor').html('Sign out').attr('href', '#/logout');
                 loadSideMenu();
@@ -89,14 +101,13 @@ $(document).ready(function () {
             });
         });
         this.get('#/instruments', function () {
-            //alert(localStorage.getItem('user') === 'admin');
-            var currentUsername = localStorage.getItem('user');
-
-            if(!currentUsername) {
+            if(!checkIfLogged()){
                 return;
             }
+            var userRole = localStorage.getItem('userRole');
 
-            if (currentUsername === 'admin') {
+
+            if (userRole === 'admin') {
                 instruments.listInstruments().then(function (result) {
                     template.loadTemplate('instruments.html', { "instruments": result.result }, " | Instruments");
                 });
@@ -127,6 +138,9 @@ $(document).ready(function () {
             //
         });
         this.get('#/new-instrument', function () {
+            if(!checkIfLogged()){
+                return;
+            }
                 template.loadTemplate('new-instrument.html', {}, " | New Instrument");
         });
     });
