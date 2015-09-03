@@ -1,4 +1,4 @@
-function generalModule() {
+var generalModule = (function generalModule() {
     var generalModule = (function () {
         var templateManager,
             CONSTANTS = {
@@ -129,4 +129,4 @@ function generalModule() {
         };
     }());
     return generalModule;
-}
+}());

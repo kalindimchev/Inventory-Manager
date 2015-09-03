@@ -1,8 +1,5 @@
-var iModule = instrumentsModule();
-var instruments = iModule.getInstruments();
-var gModule = generalModule(),
-    template = gModule.getTemplateManager();
-
+var instruments = instrumentsModule.getInstruments();
+var template = generalModule.getTemplateManager();
 function checkIfLogged(){
     var user = localStorage.getItem('user');
     if(!user) {
@@ -29,10 +26,10 @@ function loadSideMenu(){
         $('#reg-anchor').html('Sign out').attr('href', '#/logout');
     if(userRole === 'admin'){
 
-        template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
+        template.loadTemplate("vertical-navigation.html", { "items": generalModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
     } else {
 
-        template.loadTemplate("vertical-navigation.html", { "items": gModule.constants.sidebarContent.manager }, "", $("#side-navigation-container"));
+        template.loadTemplate("vertical-navigation.html", { "items": generalModule.constants.sidebarContent.manager }, "", $("#side-navigation-container"));
 
     }}
 }
@@ -68,6 +65,8 @@ function authenticateUser(){
 
 
 $(document).ready(function () {
+    var instruments = instrumentsModule.getInstruments();
+    var template = generalModule.getTemplateManager();
     var CONSTANTS = {
         API_KEY: 'TNgVNbBpEOMFJ0T8'
     };
@@ -90,7 +89,7 @@ $(document).ready(function () {
 
     //---------------- Site Routing --------------------//
     var sammyApp = Sammy('#container', function () {
-
+        instruments = instruments || instrumentsModule.getInstruments();
         //Home Page (Start Screen)
 
         this.get('#/', function () {

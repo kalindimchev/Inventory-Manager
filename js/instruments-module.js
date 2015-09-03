@@ -1,4 +1,4 @@
-function instrumentsModule() {
+var instrumentsModule = (function instrumentsModule() {
     var instrumentsModule = (function () {
         var instruments,
             CONSTANTS = {
@@ -147,6 +147,6 @@ function instrumentsModule() {
         };
     }());
     return instrumentsModule;
-}
+}());
 
 
