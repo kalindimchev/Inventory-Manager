@@ -13,7 +13,7 @@ var logUser = function () {
 				url: 'http://api.everlive.com/v1/' + CONSTANTS.API_KEY + '/ConfidentialData',
 				method: 'GET',
 				success: function (data) {
-					console.log(data.Result);
+					//console.log(data.Result);
 					resolve(data.Result.filter(function (user) {
 						return (user.User === username) && (user.Pass === password);
 					})[0]);
@@ -30,7 +30,7 @@ var logUser = function () {
 
 		});
 
-		console.log(promise);
+		//console.log(promise);
 		return promise;
 	};
 

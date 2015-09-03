@@ -44,14 +44,17 @@ function logout(){
     $('#reg-anchor').html('Register').attr('href', '#/register');
     localStorage.removeItem('user');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('userSite');
 }
 function authenticateUser(){
     logUser()
         .then(function (user) {
             if (user) {
-
                 localStorage.setItem('user', user.User);
                 localStorage.setItem('userRole', user.Role);
+                if(user.Role == 'manager'){
+                    localStorage.setItem('userSite', user.ConstructionSite);
+                }
                 $('#container').empty();
                 $('#sign-in-anchor').html(user.User).attr('href', '#/instuments');
                 $('#reg-anchor').html('Sign out').attr('href', '#/logout');
@@ -94,7 +97,7 @@ $(document).ready(function () {
         });
         //Sign in page (Login Screen)
         this.get('#/login', function () {
-            // logout();
+            logout();
             $("#side-navigation-container").empty();
             template.loadTemplate("login.html", {}, " | Login");
         });
@@ -112,45 +115,21 @@ $(document).ready(function () {
             });
         });
         this.get('#/instruments', function () {
-            var user = localStorage.getItem('user');
-            if(!user){
+            if(!checkIfLogged()){
                 return;
             }
-            var userRole = localStorage.getItem('userRole');
 
+            instruments.listInstruments().then(function(result){
+                var options = {
+                    "instruments": result.result
+                };
 
-            if (userRole === 'admin') {
-                instruments.listInstruments().then(function (result) {
-
-                    template.loadTemplate('instruments.html', { "instruments": result.result, "role": userRole  }, " | Instruments", null, loadTablePlugin());
-
-
-                });
-                  } else {
-                var filter = { "Username" :  user.User};
-
-                $.ajax({
-                    url: 'http://api.everlive.com/v1/' + CONSTANTS.API_KEY + '/SiteManager',
-                    type: "GET",
-                    headers: {"X-Everlive-Filter" : JSON.stringify(filter) },
-                    success: function(data){
-                        console.log('Dataaaa' + JSON.stringify(data));
-                        console.log(data.Result[0].InventoryList);
-
-                        instruments.listInstruments().then(function (result) {
-                            template.loadTemplate('site-manager-instruments.html', { "instruments": data.Result[0].InventoryList }, " | Instruments");
-                        });
-                             },
-                    error: function(error){
-                        //alert(JSON.stringify(error));
-                    }
-                });
-
-
-            }
-
-
-            //
+                var userRole = localStorage.getItem('userRole');
+                if(userRole == 'admin'){
+                    options['admin']  = true;
+                }
+                template.loadTemplate('instruments.html', options, " | Instruments", null, loadTablePlugin());
+            });
         });
         this.get('#/new-instrument', function () {
             if(!checkIfLogged()){
@@ -193,8 +172,15 @@ $(document).ready(function () {
             // try to create the instrument
             result = instruments.create(brand, model, count);
         //if the creation was successful redirect to instruments page
-        if (result) {
-            window.location.hash = '#/instruments';
+        if (typeof result !== "object") {
+            //window.location.hash = '#/instruments';
+            alert(result.toString());
+        } else {
+            result.then(function(){
+                window.location.hash = '#/instruments';
+            }, function(error){
+                alert(JSON.stringify(error));
+            })
         }
     });
 
@@ -208,9 +194,16 @@ $("#container").on("click", "#instruments-admin-page .instruments-filter", funct
         type = null;
     }
 
-    var userRole = localStorage.getItem('userRole');
     instruments.listInstruments(type).then(function(result){
-        template.loadTemplate('instruments.html', {"instruments": result.result, "role": userRole}, " | Instruments", null, loadTablePlugin());
+        var options = {
+            "instruments": result.result
+        };
+
+        var userRole = localStorage.getItem('userRole');
+        if(userRole == 'admin'){
+            options['admin']  = true;
+        }
+        template.loadTemplate('instruments.html', options, " | Instruments", null, loadTablePlugin());
     });
 
 });

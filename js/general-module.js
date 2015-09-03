@@ -39,7 +39,13 @@ function generalModule() {
                         {
                             "classes": "",
                             "link": "#/instruments",
-                            "content": "<i class='fa fa-cogs fa-lg'></i> Instruments"
+                            "content": "<i class='fa fa-cogs fa-lg'></i>All Instruments"
+
+                        },
+                        {
+                            "classes": "",
+                            "link": "#/site-instruments",
+                            "content": "<i class='fa fa-cogs fa-lg'></i>Site Instruments"
 
                         },
                     ]

@@ -20,7 +20,6 @@
         }
     })
         .then(function(data) {
-            console.log(currentAdminCount + ' sfsfasf');
 
             if (!currentAdminCount) {
                 $.ajax({

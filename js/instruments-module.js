@@ -2,9 +2,45 @@ function instrumentsModule() {
     var instrumentsModule = (function () {
         var instruments,
             CONSTANTS = {
-                API_KEY: 'TNgVNbBpEOMFJ0T8'
+                API_KEY: 'TNgVNbBpEOMFJ0T8',
+                STRING_MIN_VALUE: 3,
+                STRING_MAX_VALUE: 50
             };
-
+        var validator = {
+            validateIfUndefined: function (value, name) {
+                name = name || 'Value';
+                if (typeof  value === 'undefined') {
+                    throw new Error(name + ' should not be undefined.');
+                }
+            },
+            validateIfOfType: function (value, type, name) {
+                name = name || 'Value';
+                if (typeof  value !== type) {
+                    throw new Error(name + ' should be  of type ' + type);
+                }
+            },
+            validateString: function (value, name) {
+                var valLength;
+                name = name || 'Value';
+                this.validateIfUndefined(value, name);
+                this.validateIfOfType(value, 'string', name);
+                valLength = value.length;
+                if (valLength < CONSTANTS.STRING_MIN_VALUE
+                    || valLength > CONSTANTS.STRING_MAX_VALUE) {
+                    throw new Error(name + ' length should be between '
+                    + CONSTANTS.STRING_MIN_VALUE + ' and ' + CONSTANTS.STRING_MAX_VALUE);
+                }
+            },
+            validateNumber: function (value, name) {
+                value = +value;
+                name = name || 'Value';
+                this.validateIfUndefined(value, name);
+                this.validateIfOfType(value, 'number', name);
+                if (value < 1) {
+                    throw new Error(name + ' should be positive');
+                }
+            }
+        };
         instruments = (function () {
             var instruments =  Object.create({});
 
@@ -16,6 +52,24 @@ function instrumentsModule() {
             });
             Object.defineProperty(instruments, 'create', {
                 value: function (brand, model, count) {
+                    try {
+                        validator.validateString(brand, 'Brand')
+                    }
+                    catch(err) {
+                        return err.message;
+                    }
+                    try {
+                        validator.validateString(model, 'Model')
+                    }
+                    catch(err) {
+                        return err.message;
+                    }
+                    try {
+                        validator.validateNumber(count, 'Count')
+                    }
+                    catch(err) {
+                        return err.message;
+                    }
                     var info = {
                         "Brand": brand,
                         "Model": model,
@@ -25,15 +79,7 @@ function instrumentsModule() {
                     var self = this;
                     var data = self.db.data('Instrument');
 
-                    data.create(info).then(
-                        function(data){
-                            //alert(JSON.stringify(data));
-                        },
-                        function(error){
-                            //alert(JSON.stringify(error));
-                        });
-
-                    return true;
+                    return data.create(info);
                 }
             });
             Object.defineProperty(instruments, 'listInstruments', {
@@ -51,8 +97,6 @@ function instrumentsModule() {
                                 break;
                         }}
                         return data.get(query);
-
-
 
                 }
             });

@@ -12,12 +12,14 @@
     <button type="button" id="available" class="instruments-filter btn btn-info">Available</button>
     <button type="button" id="unavailable" class="instruments-filter btn btn-info">Not Available</button>
 
+    {{#if admin}}
     <div class="pull-right">
         <a href="#/new-instrument">
             <button type="button" class="btn btn-success "><span class="glyphicon glyphicon-plus"></span>Add Instrument
             </button>
         </a>
     </div>
+    {{/if}}
     <br>
     <br>
 
@@ -28,7 +30,7 @@
             <th>Model</th>
             <th>Count</th>
             <th>Available Count</th>
-            <th>Actions</th>
+            {{#if admin}}{{else}}<th>Actions</th>{{/if}}
         </tr>
         </thead>
         <tbody>
@@ -38,11 +40,15 @@
             <td>{{Model}}</td>
             <td>{{Count}}</td>
             <td>{{AvailableCount}}</td>
+            {{#if ../admin}}{{else}}
             <td>
+                {{#ifCond AvailableCount '>' 0}}
                 <button type="button" data-id="{{Id}}" data-toggle="modal" data-target="#editInstrumentModal"
-                        class="edit-instrument btn btn-info active">Edit
+                        class="edit-instrument btn btn-info active">Add request
                 </button>
+                {{/ifCond}}
             </td>
+            {{/if}}
         </tr>
         {{~/each}}
         </tbody>
