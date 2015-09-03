@@ -26,7 +26,8 @@ html, body{
 #container{
     padding-top: 90px;
     min-height: 1000px;
-    height: 1000px;
+    height: 2000px;
+    padding-right: 10px;
 }
 
 

@@ -13,6 +13,14 @@ function checkIfLogged(){
         return true;
     }
 }
+
+var oTable;
+function loadTablePlugin(){
+
+    setTimeout(function(){     if(typeof oTable != "undefined"){ oTable.fnDestroy();}
+        oTable = $('.datatable').dataTable()}, 100);
+;
+}
 function loadSideMenu(){
     var user = localStorage.getItem('user');
     var userRole = localStorage.getItem('userRole');
@@ -112,7 +120,10 @@ $(document).ready(function () {
 
             if (userRole === 'admin') {
                 instruments.listInstruments().then(function (result) {
-                    template.loadTemplate('instruments.html', { "instruments": result.result }, " | Instruments");
+
+                    template.loadTemplate('instruments.html', { "instruments": result.result, "role": userRole  }, " | Instruments", null, loadTablePlugin());
+
+
                 });
                   } else {
                 var filter = { "Username" : currentUsername };
@@ -196,9 +207,11 @@ $("#container").on("click", "#instruments-admin-page .instruments-filter", funct
         type = null;
     }
 
+    var userRole = localStorage.getItem('userRole');
     instruments.listInstruments(type).then(function(result){
-        template.loadTemplate('instruments.html', {"instruments": result.result}, " | Instruments");
+        template.loadTemplate('instruments.html', {"instruments": result.result, "role": userRole}, " | Instruments", null, loadTablePlugin());
     });
+
 });
 
 });
