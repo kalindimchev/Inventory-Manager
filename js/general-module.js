@@ -1,6 +1,8 @@
 var generalModule = (function generalModule() {
     var generalModule = (function () {
         var templateManager,
+            oTable,
+            generalManager,
             CONSTANTS = {
                 "container": "#container",
                 "templatesFolder": "templates/",
@@ -120,10 +122,70 @@ var generalModule = (function generalModule() {
 
             return templateManager;
         }());
+        generalManager = (function () {
+            var generalManager = Object.create({});
+
+            Object.defineProperty(generalManager, 'init', {
+                value: function () {
+                    this.templateManager = templateManager.init();
+                    this.container = $(CONSTANTS.container);
+                    return this;
+                }
+            });
+            Object.defineProperty(generalManager, 'toggleActiveButtons', {
+                value: function () {
+                    // make pressed top navigation bar button pressed
+                    $("#main nav").on("click", ".nav-btn", function () {
+                        $("#main nav .nav-btn").removeClass("active");
+                        $(this).addClass("active");
+                    });
+                    // make pressed side navigation bar button pressed
+                    $("#side-navigation-container").on("click", ".nav-btn", function () {
+                        $("#side-navigation-container li").removeClass("active");
+                        $("#side-navigation-container .nav-btn").removeClass("active");
+                        var parent = $(this).parents(".sub-menu");
+                        if (parent.length > 0) {
+                            parent.prev().addClass("active");
+                        }
+                        $(this).addClass("active");
+                    });
+                }
+            });
+            Object.defineProperty(generalManager, 'loadTablePlugin', {
+                value: function () {
+                        setTimeout(function(){     if(typeof oTable != "undefined"){ oTable.fnDestroy();}
+                            oTable = $('.datatable').dataTable()}, 100);
+                        ;
+
+                }
+            });
+            Object.defineProperty(generalManager, 'loadSideMenu', {
+                value: function () {
+                    var self = this;
+                    var user = localStorage.getItem('user');
+                    var userRole = localStorage.getItem('userRole');
+                    if(user){
+                        $('#sign-in-anchor').html(user).attr('href', '#/instuments');
+                        $('#reg-anchor').html('Sign out').attr('href', '#/logout');
+                        if(userRole === 'admin'){
+
+                            self.templateManager.loadTemplate("vertical-navigation.html", { "items": generalModule.constants.sidebarContent.administrator }, "", $("#side-navigation-container"));
+                        } else {
+
+                            self.templateManager.loadTemplate("vertical-navigation.html", { "items": generalModule.constants.sidebarContent.manager }, "", $("#side-navigation-container"));
+
+                        }}
+                }
+            });
+            return generalManager;
+        }());
 
         return {
             getTemplateManager: function () {
                 return Object.create(templateManager).init();
+            },
+            getGeneralManager: function () {
+                return Object.create(generalManager).init();
             },
             constants: CONSTANTS
         };
