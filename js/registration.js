@@ -12,7 +12,7 @@ var regButtonFunction = (function () {
         var registrationDataIsValid = validator.isValidUsername(username) && validator.isValidPassword(password);
         
         if(!registrationDataIsValid) {
-            console.log('todor todor.. TODOR');
+            alert("Unsuccessful Registration! Please Try again");
             return;
         }
         
