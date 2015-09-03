@@ -137,6 +137,15 @@ $(document).ready(function () {
             }
                 template.loadTemplate('new-instrument.html', {}, " | New Instrument");
         });
+        this.get('#/construction-site', function () {
+            var options = {
+                 Name: 'Blvd. Bulgaria',
+                 Picture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU63AqXJiwT1uCKGZ6FU25ckEN2wBSLDrCxMP-kwgGK6ssHt_5',
+                 Description: 'vsichki te psuvat na bulevarda'
+                 };
+                 
+            template.loadTemplate('construction-site.html', options);
+        });
     });
     sammyApp.run('#/');
     loadSideMenu();

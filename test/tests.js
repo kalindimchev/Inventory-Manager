@@ -246,6 +246,6 @@ describe('Registration tests', function () {
 	// 	expect($.ajax.calledWithMatch({type: "GET"})).to.be.true;
 	// 	
 	// 	$.ajax.restore();
-	});
+	// });
 	
 });
