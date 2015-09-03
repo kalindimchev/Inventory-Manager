@@ -94,7 +94,7 @@ $(document).ready(function () {
         });
         //Sign in page (Login Screen)
         this.get('#/login', function () {
-            logout();
+            // logout();
             $("#side-navigation-container").empty();
             template.loadTemplate("login.html", {}, " | Login");
         });
@@ -112,7 +112,8 @@ $(document).ready(function () {
             });
         });
         this.get('#/instruments', function () {
-            if(!checkIfLogged()){
+            var user = localStorage.getItem('user');
+            if(!user){
                 return;
             }
             var userRole = localStorage.getItem('userRole');
@@ -126,7 +127,7 @@ $(document).ready(function () {
 
                 });
                   } else {
-                var filter = { "Username" : currentUsername };
+                var filter = { "Username" :  user.User};
 
                 $.ajax({
                     url: 'http://api.everlive.com/v1/' + CONSTANTS.API_KEY + '/SiteManager',
