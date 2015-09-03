@@ -23,19 +23,19 @@ tools for different construction managers across different construction sites.
 ##Project description according to the requirements:
 We used:
 	
-* jQuery for DOM manipulations and AJAX queries
+* **jQuery** for DOM manipulations and AJAX queries
 		
-* Twitter Bootstrap for styling
+* **Twitter Bootstrap** for styling
 		
-* [Mocha and Chai for simple unit testing, Sinon for AJAX testing and mocking](test.html)
+* **Mocha** and **Chai** for simple unit testing, **Sinon** for AJAX testing and mocking
 		
-* Telerik Backend Services for web data storage
+* **Telerik Backend Services** for web data storage
 		
-* localStorage for storing the logged user
+* **localStorage** for storing the logged user
 		
-* Modules:
+* **Modules**:
 		
-	- app.js: responsible for the routing
+	- _app.js_: responsible for the routing
 			
 	- login.js: responsible for logging the user
 			
