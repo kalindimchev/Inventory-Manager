@@ -64,6 +64,10 @@ $(document).ready(function () {
             sessionManager.checkIfLogged();
                 templateManager.loadTemplate('new-instrument.html', {}, " | New Instrument");
         });
+        this.get('#/instrument-added', function () {
+            sessionManager.checkIfLogged();
+            templateManager.loadTemplate('instrument-added.html', {}, " | Instrument Added");
+        });
         this.get('#/construction-site', function () {
             sessionManager.checkIfLogged();
             var options = {

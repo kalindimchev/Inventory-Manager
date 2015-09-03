@@ -188,7 +188,7 @@ var instrumentsModule = (function instrumentsModule() {
                         alert(result.toString());
                     } else {
                         result.then(function(){
-                            window.location.hash = '#/instruments';
+                            window.location.hash = '#/instrument-added';
                         }, function(error){
                             alert(JSON.stringify(error));
                         })
