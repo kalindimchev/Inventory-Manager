@@ -64,6 +64,14 @@ describe('Factory tests', function () {
 		expect(manager.Username).to.equal('doncho');
 		expect(manager.ConstructionSite).to.equal('Remonta na bdj');
 	});
+	
+	it('expects factory to create confidential data with valid properties', function () {
+		var nfo = create.confidentialData('UIlo Kendov', 'edna lekciika');
+		
+		expect(typeof nfo.User).to.equal('string');
+		expect(typeof nfo.Pass).to.equal('string');
+		expect(nfo.Role).to.equal('manager');
+	});
 
 });
 
@@ -208,7 +216,7 @@ describe('Login tests', function () {
 
 describe('Registration tests', function () {
 	
-	it('expects registration to query the db with method POST with provided valid name and password', function () {
+	it('expects registration to NOT query the db with provided invalid name and password', function () {
 		var invalidName = '...';
 		var invalidPass = '###';
 		
@@ -222,6 +230,22 @@ describe('Registration tests', function () {
 		expect($.ajax.calledOnce).to.be.false;
 		
 		$.ajax.restore();
+	});
+	// 
+	// it('expects registration to NOT query the db with provided invalid name and password', function () {
+	// 	var invalidName = 'Domcho';
+	// 	var invalidPass = 'Minkov';
+	// 	
+	// 	$('<input>').css('display', 'none').add('username').attr('value', invalidName).appendTo('#mocha');
+	// 	$('<input>').css('display', 'none').addClass('password').attr('value', invalidPass).appendTo('#mocha');
+	// 	
+	// 	sinon.stub($, 'ajax');
+	// 	
+	// 	regButtonFunction(sinon.spy());
+	// 	
+	// 	expect($.ajax.calledWithMatch({type: "GET"})).to.be.true;
+	// 	
+	// 	$.ajax.restore();
 	});
 	
 });
