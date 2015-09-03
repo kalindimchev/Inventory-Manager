@@ -1,19 +1,23 @@
-var templates = (function() {
+var templates = (function () {
   var templates = {};
 
-  function get(url) {
-    var promise = new Promise(function(resolve, reject) {
+  function get(url, cb) {
+    var promise = new Promise(function (resolve, reject) {
       if (templates[url]) {
         resolve(templates[url]);
         return;
       }
+      if (typeof cb === 'function') {
+        cb();
+      }
       $.ajax({
         url: url,
-        success: function(html) {
+        success: function (html) {
           resolve(html);
           templates[url] = html;
+
         },
-        error: function(err) {
+        error: function (err) {
           reject(err);
         }
       });
@@ -23,6 +27,6 @@ var templates = (function() {
   }
 
   return {
-    get:get
+    get: get
   };
-}());
+} ());

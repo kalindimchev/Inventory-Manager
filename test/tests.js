@@ -8,6 +8,17 @@ describe('Templates tests', function () {
 	it('expects templates to have a getter', function () {
 		expect(templates.get).to.exist;
 	});
+
+	it('expects templates to query with the provided url', function () {
+		var url = 'templates/login.html';
+		sinon.stub($, 'ajax');
+		templates.get(url, sinon.spy());
+		
+		expect($.ajax.calledWithMatch({url: url})).to.be.true;
+		
+		$.ajax.restore();
+	});
+
 });
 
 describe('Factory tests', function () {
@@ -143,10 +154,10 @@ describe('Validator', function () {
 			Brand: 'justInstrument',
 			Model: '2'
 		};
-		
+
 		expect(validator.hasUniqueBrandModelPair(instr, instruments)).to.be.false;
 	});
-	
+
 	it('expects validator to return true for instruments with uniq model-brand', function () {
 		var instruments = [
 			{
@@ -163,12 +174,12 @@ describe('Validator', function () {
 			Brand: 'justInstrument',
 			Model: '1'
 		};
-		
+
 		var instr2 = {
 			Brand: 'bosh',
 			Model: '2'
 		};
-		
+
 		expect(validator.hasUniqueBrandModelPair(instr, instruments)).to.be.true;
 		expect(validator.hasUniqueBrandModelPair(instr2, instruments)).to.be.true;
 	});
@@ -182,5 +193,9 @@ describe('Query tests', function () {
 		expect($.ajax.calledWithMatch({
 			method: 'GET'
 		})).to.be.true;
+		
+		$.ajax.restore();
 	});
+
+	
 });
