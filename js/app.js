@@ -131,6 +131,20 @@ $(document).ready(function () {
                 template.loadTemplate('instruments.html', options, " | Instruments", null, loadTablePlugin());
             });
         });
+        this.get('#/site-instruments', function () {
+            if(!checkIfLogged()){
+                return;
+            }
+            var site = localStorage.getItem('userSite');
+            if(!site){
+                window.location.hash = '#/instruments';
+                return;
+            }
+            instruments.listSiteInstruments(site).then(function(result){
+               instruments = instruments.renderSiteInstruments(result.result[0]);
+                template.loadTemplate('site-instruments.html', {instruments: instruments}, " | Site Instruments", null, loadTablePlugin());
+            });
+        });
         this.get('#/new-instrument', function () {
             if(!checkIfLogged()){
                 return;

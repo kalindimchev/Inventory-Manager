@@ -100,6 +100,43 @@ function instrumentsModule() {
 
                 }
             });
+            Object.defineProperty(instruments, 'listSiteInstruments', {
+                value: function (siteId) {
+                    var query = new Everlive.Query();
+                    var data = this.db.data('ConstructionSite');
+
+
+                    var expandExp = {
+                        "Instruments" : {
+                            "TargetTypeName" : "Instrument"
+                        }
+                    };
+                    query.expand(expandExp);
+                    return data.get(query);
+                }
+            });
+            Object.defineProperty(instruments, 'renderSiteInstruments', {
+                value: function (obj) {
+                    var counts = obj.InstrumentsCount;
+                    var instruments = obj.Instruments;
+                    instruments.forEach(function(instr, id){
+                        var curCount;
+                        counts.some(function(text){
+                            if(text.indexOf(instr.Id)){
+
+                                text = JSON.parse(text);
+                                curCount = text.count;
+                                return true;
+                            }
+
+                        });
+
+                        instruments[id]['SiteCount'] = curCount;
+
+                    });
+                    return instruments;
+                }
+            });
             return instruments;
         }());
 
