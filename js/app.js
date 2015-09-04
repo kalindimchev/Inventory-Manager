@@ -65,9 +65,13 @@ $(document).ready(function () {
             templateManager.loadTemplate('instrument-added.html', {}, " | Instrument Added");
         });
         this.get('#/construction-site', function () {
-            sessionManager.checkIfLogged();
+            var userRole = localStorage.getItem('userRole'),
+                siteId;            
 
-            sitesManager.listSites().then(function(result){
+            if(userRole === 'manager'){
+                siteId = localStorage.userSite;
+            }
+            sitesManager.listSites(siteId).then(function(result){
                 var options = {
                     'sites': result.result
                 };

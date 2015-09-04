@@ -32,13 +32,17 @@ var sitesModule = (function sitesModule() {
                 }
             });
             Object.defineProperty(sites, 'listSites', {
-                value: function () {
+                value: function(siteId) {
                     var query = new Everlive.Query();
                     var data = this.db.data('ConstructionSite');
-
+                    if (siteId) {
+                        query
+                            .where()
+                            .eq('Id', siteId);
+                    }
                     var expandExp = {
-                        "PersonInCharge" : {
-                            "TargetTypeName" : "ConfidentialData"
+                        "PersonInCharge": {
+                            "TargetTypeName": "ConfidentialData"
                         }
                     };
                     query.expand(expandExp);
