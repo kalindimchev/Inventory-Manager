@@ -147,12 +147,19 @@
             });
             Object.defineProperty(sessionManager, 'authenticateUser', {
                 value: function () {
+                    var self = this;
                     this.logUser()
                         .then(function (user) {
                             if (user) {
                                 localStorage.setItem('user', user.User);
                                 localStorage.setItem('userRole', user.Role);
                                 if(user.Role == 'manager'){
+                                    if(!user.ConstructionSite){
+                                        alert("Please wait your assignment to a construction site to start using the application! ");
+                                        self.logout();
+                                        window.location.hash = '#/';
+                                        return;
+                                    }
                                     localStorage.setItem('userSite', user.ConstructionSite);
                                 }
                                 $('#container').empty();
