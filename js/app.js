@@ -31,7 +31,7 @@ $(document).ready(function () {
         this.get('#/register', function () {
             templateManager.loadTemplate('registration.html', {}, " | Registration", null, function () {
                 $("#side-navigation-container").empty();
-                $('#form-registration-btn').on('click', sessionModule.registerUser());
+                $('#form-registration-btn').on('click', sessionModule.registerUser);
             });
         });
         this.get('#/instruments', function () {
