@@ -34,3 +34,9 @@ html, body{
 #username-taken {
     color: red;
 }
+
+.nav-side-menu a{
+    min-width: 270px !important;
+    width: 270px !important;
+    display: inline-block;
+}
