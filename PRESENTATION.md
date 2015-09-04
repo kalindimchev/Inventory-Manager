@@ -38,16 +38,18 @@ We used:
 * **Telerik Backend Services** for web data storage
 		
 * **localStorage** for storing the logged user
+
+* **Sammy.js** for the routing
 		
 * **Modules**:
 		
 	- _app.js_: responsible for the routing
+	
+	- _factory.js_: provides model creation
+	
+	- _construction-sites-module.js_: responsible for submitting constructions sites to and fetching constructions sites from the backend
 			
 	- _general-module.js_: responsible for template loading
-			
-	- _inventory-module.js_: ??
-			
-	- _factory.js_: provides model creation
 			
 	- _validator.js_: provides validation for other modules
 	
