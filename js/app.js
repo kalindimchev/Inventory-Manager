@@ -66,13 +66,14 @@ $(document).ready(function () {
         });
         this.get('#/construction-site', function () {
             sessionManager.checkIfLogged();
-            var options = {
-                 Name: 'Blvd. Bulgaria',
-                 Picture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU63AqXJiwT1uCKGZ6FU25ckEN2wBSLDrCxMP-kwgGK6ssHt_5',
-                 Description: 'vsichki te psuvat na bulevarda'
-                 };
+
+            sitesManager.listSites().then(function(result){
+                var options = {
+                    'sites': result.result
+                }
+                templateManager.loadTemplate('construction-site.html', options);
+            })
                  
-            templateManager.loadTemplate('construction-site.html', options);
         });
     });
     sammyApp.run('#/');

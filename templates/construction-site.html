@@ -1,15 +1,20 @@
 <section class="container-fluid main-section" id="construction-site">
 	<div class="container">
 		<div class="row">
+			{{#each sites}}
 			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2">
-				<h1>{{Name}}</h1>
+				<h1>{{SiteName}}</h1>
 				<div class="row">
-					<img src="{{Picture}}" />
+					<img src="{{Picture}}" class="img-thumbnail"/>
 				</div>
 			</div>
 			<div class="row col-xs-12 col-sm-8 col-md-6 col-sm-offset-2">
-				<h3>Description: </h3> {{Description}}
+				<h3>Location: </h3> {{Location}}
 			</div>
+			<div class="row col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 well">
+				<h6>Description: </h6> {{#if Description}}{{Description}}{{else}}no description{{/if}}
+			</div>
+			{{/each}}
 		</div>
 	</div>
 </section>

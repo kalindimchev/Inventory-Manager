@@ -18,10 +18,11 @@ var sitesModule = (function sitesModule() {
                 }
             });
             Object.defineProperty(sites, 'create', {
-                value: function (location, name) {                    
+                value: function (location, name, pictureUrl) {                    
                     var info = {
                         "Location": location,
-                        "Name": name
+                        "SiteName": name,
+                        "Picture": pictureUrl
                     };
                     var self = this;
                     var data = self.db.data('ConstructionSite');
