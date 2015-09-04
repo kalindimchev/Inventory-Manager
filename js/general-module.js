@@ -127,7 +127,11 @@ var generalModule = (function generalModule() {
                     document.title = CONSTANTS.titleBase + title;
                     var self = this;
                     if(templateName == 'vertical-navigation.html'){
-                        self.container.css('margin-left', '310px');
+                        if (window.matchMedia('(min-width: 750px)').matches) {
+                            self.container.css('margin-left', '310px');
+                        } else {
+                            self.container.css('margin-left', '10px');
+                        }
                     }
                     container.empty();
                     self.getTemplate(templateName)
