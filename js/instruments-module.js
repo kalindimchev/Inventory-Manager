@@ -330,10 +330,12 @@ var instrumentsModule = (function instrumentsModule() {
                     return err.message;
                 }
 
+                value = +value;
+                max = +max;
                 if(value > max){
                     return "The maximum return quantity is "+ max;
                 }
-                value = +value;
+
 
 
                 var instrumentId = id;
@@ -374,6 +376,8 @@ var instrumentsModule = (function instrumentsModule() {
                     return err.message;
                 }
 
+                value = +value;
+                max = +max;
                 if(value > max){
                     return "The maximum return quantity is "+ max;
                 }
