@@ -15,6 +15,7 @@ $(document).ready(function () {
         //Home Page (Start Screen)
 
         this.get('#/', function () {
+            templateManager.loadTemplate("home.html", {}, " | Home");
         });
         //Sign in page (Login Screen)
         this.get('#/login', function () {

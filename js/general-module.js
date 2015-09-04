@@ -116,6 +116,11 @@ var generalModule = (function generalModule() {
             });
             Object.defineProperty(templateManager, 'loadTemplate', {
                 value: function (templateName, options, title, container,cb) {
+                    if(templateName == 'home.html'){
+                        $("body").css('background', '#18bc9c');
+                    } else {
+                        $("body").css('background', 'white');
+                    }
                     options = options || {};
                     title = title || '';
                     container = container || this.container;
