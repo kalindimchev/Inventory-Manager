@@ -4,6 +4,7 @@ var templateManager,
     sessionManager;
 $(document).ready(function () {
    instrumentsManager = instrumentsModule.getInstruments();
+   sitesManager = sitesModule.getSites();
     templateManager = generalModule.getTemplateManager();
     generalManager = generalModule.getGeneralManager();
     sessionManager = sessionModule;

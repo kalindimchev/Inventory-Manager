@@ -12,8 +12,18 @@ var generalModule = (function generalModule() {
                         {
                             "classes": "",
                             "link": "#/construction-sites",
-                            "content": "<i class='fa fa-university fa-lg'></i> Construction Sites"
-
+                            "content": "<i class='fa fa-university fa-lg'></i> Construction Sites",
+                            "subitems": [
+                                {
+                                    "classes": "",
+                                    "link": "#/construction-site",
+                                    "content": " List"
+                                },
+                                {
+                                    "link": "#/new-site",
+                                    "content": " Add Construction site"
+                                },
+                            ]
                         },
                         {
                             "classes": "",
