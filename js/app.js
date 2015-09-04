@@ -76,6 +76,9 @@ $(document).ready(function () {
                 var options = {
                     'sites': result.result
                 };
+                if(userRole == 'admin'){
+                    options['admin'] = true;
+                }
                 templateManager.loadTemplate('construction-site.html', options);
             })
         });
