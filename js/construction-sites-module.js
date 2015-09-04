@@ -35,6 +35,13 @@ var sitesModule = (function sitesModule() {
                 value: function () {
                     var query = new Everlive.Query();
                     var data = this.db.data('ConstructionSite');
+
+                    var expandExp = {
+                        "PersonInCharge" : {
+                            "TargetTypeName" : "ConfidentialData"
+                        }
+                    };
+                    query.expand(expandExp);
                     return data.get(query);
                 }
             });
