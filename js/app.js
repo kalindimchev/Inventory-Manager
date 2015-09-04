@@ -70,10 +70,13 @@ $(document).ready(function () {
             sitesManager.listSites().then(function(result){
                 var options = {
                     'sites': result.result
-                }
+                };
                 templateManager.loadTemplate('construction-site.html', options);
             })
-                 
+        });
+        this.get('#/new-site', function () {
+            sessionManager.checkIfLogged();
+            templateManager.loadTemplate('new-construction-site.html', {}, " | New Construction Site");
         });
     });
     sammyApp.run('#/');
@@ -105,5 +108,8 @@ instrumentsManager.returnInstrumentOnButtonClick();
 instrumentsManager.requestInstrumentOnButtonClick();
 instrumentsManager.DenyOnButtonClick();
 instrumentsManager.ApproveOnButtonClick();
+
+sitesManager.submitCreateForm();
+
 
 });

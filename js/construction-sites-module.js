@@ -1,6 +1,6 @@
 var sitesModule = (function sitesModule() {
     var sitesModule = (function () {
-        var constructionSites,
+        var sites,
             CONSTANTS = {
                 API_KEY: 'TNgVNbBpEOMFJ0T8',
                 STRING_MIN_VALUE: 3,
@@ -18,11 +18,12 @@ var sitesModule = (function sitesModule() {
                 }
             });
             Object.defineProperty(sites, 'create', {
-                value: function (location, name, pictureUrl) {                    
+                value: function (name, location, description, picture) {
                     var info = {
-                        "Location": location,
                         "SiteName": name,
-                        "Picture": pictureUrl
+                        "Location": location,
+                        "Description": description,
+                        "Picture": picture
                     };
                     var self = this;
                     var data = self.db.data('ConstructionSite');
@@ -50,8 +51,10 @@ var sitesModule = (function sitesModule() {
                     //get the form values
                     var location = $("#new-site #location").val(),
                         name = $("#new-site #name").val(),
-                    // try to create the instrument
-                        result = self.create(location, name);
+                        description = $("#new-site #description").val(),
+                        picture = $("#new-site #picture").val(),
+                    // try to create the construction site
+                        result = self.create(name, location, description, picture);
                     //if the creation was successful redirect to instruments page
                     if (typeof result !== "object") {
                         //window.location.hash = '#/instruments';

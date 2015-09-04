@@ -15,9 +15,11 @@ var create = function () {
         },
         constructionSite = {
             "Picture": null,
-            "Name": '',
-            "Description": ''
-        }
+            "SiteName": '',
+            "Description": '',
+            "Location": '',
+            "PersonInCharge": ''
+        };
 
     return {
         admin: function (username) {
@@ -31,11 +33,13 @@ var create = function () {
             newManager.ConstructionSite = constructionSite;
             return newManager;
         },
-        constructionSite: function(photoUrl, name, description) {
+        constructionSite: function(photoUrl, name, description, location) {
             var newSite = Object.create(constructionSite);
             newSite.Picture = photoUrl;
-            newSite.Name = name;
+            newSite.SiteName = name;
             newSite.Description = description;
+            newSite.Location = location;
+
             return newSite;
         },
         confidentialData: function (username, password) {
