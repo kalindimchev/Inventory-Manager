@@ -1,4 +1,4 @@
-<div id="instruments-admin-page">
+<div id="requests-page">
 
     <div class="page-header">
         <h1>Instruments Requests
@@ -61,10 +61,10 @@
             {{#if ../admin}}
             <td>
                 {{#ifCond Status '==' 'pending'}}
-                <button type="button" data-request-id="{{Id}}" data-id="{{Instrument.Id}}" data-count="{{Count}}" data-toggle="modal" data-target="#approveRequestModal"
-                        class="approve-request btn btn-success active">Approve
+                <button type="button" data-site-id="{{ConstructionSite.Id}}"  data-request-id="{{Id}}" data-instrument-id="{{Instrument.Id}}" data-count="{{Count}}" data-toggle="modal" data-target="#approveRequestModal"
+                        data-available-count="{{Instrument.AvailableCount}}"   class="approve-request btn btn-success active">Approve
                 </button>
-                <button type="button" data-request-id="{{Id}}" data-id="{{Instrument.Id}}" data-count="{{Count}}" data-toggle="modal" data-target="#denyRequestModal"
+                <button type="button" data-site-id="{{ConstructionSite.Id}}" data-available-count="{{Instrument.AvailableCount}}"   data-request-id="{{Id}}" data-instrument-id="{{Instrument.Id}}" data-count="{{Count}}" data-toggle="modal" data-target="#denyRequestModal"
                         class="deny-request btn btn-danger active">Deny
                 </button>
                 {{/ifCond}}
@@ -90,7 +90,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button data-request-id="" data-instrument-id="" data-count-id="" type="button" id="approve-btn" class="btn btn-success">Approve</button>
+                <button data-request-id="" data-site-id="" data-available-count=""  data-instrument-id="" data-count="" type="button" id="approve-btn" class="btn btn-success">Approve</button>
             </div>
         </div>
     </div>
@@ -109,7 +109,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button data-request-id="" data-instrument-id="" data-count-id=""  id="deny-btn" type="button" class="btn btn-danger">Deny</button>
+                <button data-request-id="" data-site-id="" data-instrument-id="" data-count=""  id="deny-btn" type="button" class="btn btn-danger">Deny</button>
             </div>
         </div>
     </div>

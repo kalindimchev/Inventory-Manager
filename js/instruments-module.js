@@ -261,6 +261,65 @@ var instrumentsModule = (function instrumentsModule() {
                 });
             }
         });
+        Object.defineProperty(instruments, 'denyRequest', {
+            value: function (requestId) {
+                var self = this;
+                var data = self.db.data('Request');
+                data.update({'Status': 'denied' },{Id: requestId}, function(result){
+
+                    $('#denyRequestModal').modal('hide');
+                    self.loadRequestsListPage();
+                }, function(result){
+                    alert(JSON.stringify(result));
+                });
+            }
+        });
+        Object.defineProperty(instruments, 'approveRequest', {
+            value: function (requestId, instrumentId, siteId, valueNew, availableCount) {
+                valueNew = +valueNew;
+                var self = this;
+
+
+                var data = self.db.data('Instrument');
+                data.update({'AvailableCount': (availableCount - valueNew) },{Id: instrumentId});
+                 data = self.db.data('Request');
+                data.update({'Status': 'approved' },{Id: requestId}, function(result){
+                    query = new Everlive.Query();
+                    query
+                        .where()
+                        .eq('Id', siteId);
+                    var data = self.db.data('ConstructionSite');
+                    data.get(query).then(function(result){
+                        var site = result.result[0];
+                        var instruments = site.Instruments;
+
+                        var counts = site.Counts;
+                        if(counts[instrumentId]){
+                            counts[instrumentId] = parseInt(counts[instrumentId]) + valueNew;
+
+                            data = self.db.data('ConstructionSite');
+                            data.update({'Counts': counts },{Id: siteId}, function(){
+                                $('#approveRequestModal').modal('hide');
+                                self.loadRequestsListPage();
+                            });
+                        } else {
+                            instruments.push(instrumentId);
+                            counts[instrumentId] = valueNew;
+
+                            var data = self.db.data('ConstructionSite');
+                            data.update({'Counts': counts, 'Instruments': instruments },{Id: siteId}, function(){
+                                $('#approveRequestModal').modal('hide');
+                                self.loadRequestsListPage();
+
+                            });
+                        }
+                        return;
+                    });
+                }, function(result){
+                    alert(JSON.stringify(result));
+                });
+            }
+        });
         Object.defineProperty(instruments, 'returnInstrument', {
             value: function (id,value, max) {
                 var self = this;
@@ -354,6 +413,48 @@ var instrumentsModule = (function instrumentsModule() {
                     if(typeof result == "string" ){
                         alert(result);
                     }
+                });
+            }
+        });
+        Object.defineProperty(instruments, 'DenyOnButtonClick', {
+            value: function () {
+                var self = this;
+                $("#container").on("click","#requests-page .deny-request", function(){
+                    var elem = $("#denyRequestModal #deny-btn");
+                    elem.attr('data-site-id', $(this).attr('data-site-id'));
+                    elem.attr('data-instrument-id', $(this).attr('data-instrument-id'));
+                    elem.attr('data-request-id', $(this).attr('data-request-id'));
+                    elem.attr('data-count', $(this).attr('data-count'));
+                });
+
+                $("#container").on("click","#denyRequestModal #deny-btn", function(e){
+                    e.preventDefault();
+                  self.denyRequest($(this).attr('data-request-id'));
+                });
+            }
+        });
+        Object.defineProperty(instruments, 'ApproveOnButtonClick', {
+            value: function () {
+                var self = this;
+                $("#container").on("click","#requests-page .approve-request", function(){
+                    var elem = $("#approveRequestModal #approve-btn");
+                    elem.attr('data-site-id', $(this).attr('data-site-id'));
+                    elem.attr('data-instrument-id', $(this).attr('data-instrument-id'));
+                    elem.attr('data-request-id', $(this).attr('data-request-id'));
+                    elem.attr('data-count', $(this).attr('data-count'));
+                    elem.attr('data-available-count', $(this).attr('data-available-count'));
+                });
+
+                $("#container").on("click","#approveRequestModal #approve-btn", function(e){
+
+                    var result = self.approveRequest(
+                        $(this).attr('data-request-id'),
+                        $(this).attr('data-instrument-id'),
+                        $(this).attr('data-site-id'),
+                        $(this).attr('data-count'),
+                        $(this).attr('data-available-count')
+                    );
+
                 });
             }
         });
