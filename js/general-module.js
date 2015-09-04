@@ -16,6 +16,12 @@ var generalModule = (function generalModule() {
 
                         },
                         {
+                            "classes": "",
+                            "link": "#/requests",
+                            "content": "<i class='fa fa-cogs fa-lg'></i> Instruments Requests"
+
+                        },
+                        {
                             "link": "#/instruments",
                             "content": "<i class='fa fa-cogs fa-lg'></i> Instruments",
                             "subitems": [
@@ -50,6 +56,12 @@ var generalModule = (function generalModule() {
                             "content": "<i class='fa fa-cogs fa-lg'></i>Site Instruments"
 
                         },
+                        {
+                            "classes": "",
+                            "link": "#/requests",
+                            "content": "<i class='fa fa-cogs fa-lg'></i> Instruments Requests"
+
+                        }
                     ]
                 }
             };

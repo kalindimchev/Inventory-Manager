@@ -38,6 +38,11 @@ $(document).ready(function () {
 
             instrumentsManager.loadInstrumentsListPage();
         });
+        this.get('#/requests', function () {
+            sessionManager.checkIfLogged();
+
+            instrumentsManager.loadRequestsListPage();
+        });
         this.get('#/site-instruments', function () {
             sessionManager.checkIfLogged();
             var site = localStorage.getItem('userSite');

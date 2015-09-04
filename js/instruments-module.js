@@ -100,6 +100,34 @@ var instrumentsModule = (function instrumentsModule() {
 
                 }
             });
+            Object.defineProperty(instruments, 'listRequests', {
+                value: function (siteId) {
+
+                    var query = new Everlive.Query();
+                    var data = this.db.data('Request');
+
+                    var expandExp = {
+                        "Instrument" : {
+                            "TargetTypeName" : "Instrument"
+                        },
+                        "ConstructionSite" : {
+                            "TargetTypeName" : "ConstructionSite"
+                        },
+                        "SiteManager" : {
+                            "TargetTypeName" : "ConfidentialData"
+                        }
+                    };
+                    query.expand(expandExp);
+                    if(siteId){
+
+                        query
+                            .where()
+                            .eq('ConstructionSite', siteId);
+                    }
+                    return data.get(query);
+
+                }
+            });
             Object.defineProperty(instruments, 'listSiteInstruments', {
                 value: function (siteId) {
                     var query = new Everlive.Query();
@@ -143,6 +171,24 @@ var instrumentsModule = (function instrumentsModule() {
                         options['admin']  = true;
                     }
                     templateManager.loadTemplate('instruments.html', options, " | Instruments", null, generalManager.loadTablePlugin());
+                });
+            }
+        });
+        Object.defineProperty(instruments, 'loadRequestsListPage', {
+            value: function () {
+                var site = localStorage.getItem('userSite');
+                this.listRequests(site).then(function(result){
+                    result = result.result;
+                    console.log(result);
+                    var options = {
+                        "instruments": result
+                    };
+
+                    var userRole = localStorage.getItem('userRole');
+                    if(userRole == 'admin'){
+                        options['admin']  = true;
+                    }
+                    templateManager.loadTemplate('requests.html', options, " | Requests", null, generalManager.loadTablePlugin());
                 });
             }
         });

@@ -1,0 +1,116 @@
+<div id="instruments-admin-page">
+
+    <div class="page-header">
+        <h1>Instruments Requests
+        </h1>
+    </div>
+    <hr/>
+
+    <h3>Filter Items</h3>
+
+    <button type="button" id="all" class="instruments-filter btn btn-info active">All</button>
+    <button type="button" id="pending" class="instruments-filter btn btn-info">Pending</button>
+    <button type="button" id="approved" class="instruments-filter btn btn-info">Approved</button>
+    <button type="button" id="denied" class="instruments-filter btn btn-info">Denied</button>
+
+
+    <br>
+    <br>
+
+    <table class="datatable table table-striped table-bordered">
+        <thead>
+        <tr>
+            {{#if admin}}
+            <th>Manager</th>
+            <th>Construction Site</th>
+            {{/if}}
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Requested Count</th>
+            <th>Count</th>
+            <th>Available Count</th>
+            <th>Status</th>
+            {{#if admin}}<th>Actions</th>{{/if}}
+        </tr>
+        </thead>
+        <tbody>
+        {{#each instruments }}
+        <tr>
+            {{#if ../admin}}
+            <td>{{SiteManager.User}}</td>
+            <td>{{ConstructionSite.SiteName}}</td>
+            {{/if}}
+            <td>{{Instrument.Brand}}</td>
+            <td>{{Instrument.Model}}</td>
+            <td>{{Count}}</td>
+            <td>{{Instrument.Count}}</td>
+            <td>{{Instrument.AvailableCount}}</td>
+            <td>
+                <span class="label
+                  {{#ifCond Status '==' 'pending'}}
+                 label-info
+                 {{/ifCond}}
+                  {{#ifCond Status '==' 'approved'}}
+                 label-success
+                 {{/ifCond}}
+                 {{#ifCond Status '==' 'denied'}}
+                 label-danger
+                 {{/ifCond}}
+                 ">{{Status}}</span>
+            </td>
+            {{#if ../admin}}
+            <td>
+                {{#ifCond Status '==' 'pending'}}
+                <button type="button" data-request-id="{{Id}}" data-id="{{Instrument.Id}}" data-count="{{Count}}" data-toggle="modal" data-target="#approveRequestModal"
+                        class="approve-request btn btn-success active">Approve
+                </button>
+                <button type="button" data-request-id="{{Id}}" data-id="{{Instrument.Id}}" data-count="{{Count}}" data-toggle="modal" data-target="#denyRequestModal"
+                        class="deny-request btn btn-danger active">Deny
+                </button>
+                {{/ifCond}}
+            </td>
+            {{/if}}
+        </tr>
+        {{~/each}}
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="approveRequestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Approve Request</h4>
+            </div>
+            <div class="modal-body">
+                <h3>Are You sure you want to approve the request?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button data-request-id="" data-instrument-id="" data-count-id="" type="button" id="approve-btn" class="btn btn-success">Approve</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="denyRequestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel1">Deny Request</h4>
+            </div>
+            <div class="modal-body">
+                <h3>Are You sure you want to deny the request?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button data-request-id="" data-instrument-id="" data-count-id=""  id="deny-btn" type="button" class="btn btn-danger">Deny</button>
+            </div>
+        </div>
+    </div>
+</div>
