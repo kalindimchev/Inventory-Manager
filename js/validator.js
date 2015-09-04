@@ -46,5 +46,5 @@ var validator = (function () {
 		});
 	}
 	
-	return { isValidPassword, isValidUsername, hasUniqueBrandModelPair };
+	return { "isValidPassword": isValidPassword, "isValidUsername": isValidUsername, "hasUniqueBrandModelPair": hasUniqueBrandModelPair };
 } ());
