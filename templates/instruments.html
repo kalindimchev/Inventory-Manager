@@ -43,7 +43,7 @@
             {{#if ../admin}}{{else}}
             <td>
                 {{#ifCond AvailableCount '>' 0}}
-                <button type="button" data-id="{{Id}}" data-toggle="modal" data-target="#editInstrumentModal"
+                <button type="button" data-id="{{Id}}" data-toggle="modal" data-target="#instrumentModal"
                         class="edit-instrument btn btn-info active">Add request
                 </button>
                 {{/ifCond}}
@@ -56,7 +56,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="editInstrumentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="instrumentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

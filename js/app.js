@@ -36,17 +36,7 @@ $(document).ready(function () {
         this.get('#/instruments', function () {
            sessionManager.checkIfLogged();
 
-            instrumentsManager.listInstruments().then(function(result){
-                var options = {
-                    "instruments": result.result
-                };
-
-                var userRole = localStorage.getItem('userRole');
-                if(userRole == 'admin'){
-                    options['admin']  = true;
-                }
-                templateManager.loadTemplate('instruments.html', options, " | Instruments", null, generalManager.loadTablePlugin());
-            });
+            instrumentsManager.loadInstrumentsListPage();
         });
         this.get('#/site-instruments', function () {
             sessionManager.checkIfLogged();
@@ -104,4 +94,5 @@ $(document).ready(function () {
 instrumentsManager.submitCreateForm();
 instrumentsManager.filterTableOnButtonClick();
 
+instrumentsManager.returnInstrumentOnButtonClick();
 });

@@ -103,6 +103,9 @@ var instrumentsModule = (function instrumentsModule() {
             Object.defineProperty(instruments, 'listSiteInstruments', {
                 value: function (siteId) {
                     var query = new Everlive.Query();
+                    query
+                        .where()
+                        .eq('Id', siteId);
                     var data = this.db.data('ConstructionSite');
 
 
@@ -117,22 +120,9 @@ var instrumentsModule = (function instrumentsModule() {
             });
             Object.defineProperty(instruments, 'renderSiteInstruments', {
                 value: function (obj) {
-                    var counts = obj.InstrumentsCount;
                     var instruments = obj.Instruments;
                     instruments.forEach(function(instr, id){
-                        var curCount;
-                        counts.some(function(text){
-                            if(text.indexOf(instr.Id)){
-
-                                text = JSON.parse(text);
-                                curCount = text.count;
-                                return true;
-                            }
-
-                        });
-
-                        instruments[id]['SiteCount'] = curCount;
-
+                        instruments[id]['SiteCount'] = obj.Counts[instr.Id];
                     });
                     return instruments;
                 }
@@ -141,6 +131,35 @@ var instrumentsModule = (function instrumentsModule() {
         }());
 
 
+        Object.defineProperty(instruments, 'loadInstrumentsListPage', {
+            value: function () {
+                this.listInstruments().then(function(result){
+                    var options = {
+                        "instruments": result.result
+                    };
+
+                    var userRole = localStorage.getItem('userRole');
+                    if(userRole == 'admin'){
+                        options['admin']  = true;
+                    }
+                    templateManager.loadTemplate('instruments.html', options, " | Instruments", null, generalManager.loadTablePlugin());
+                });
+            }
+        });
+        Object.defineProperty(instruments, 'loadSiteInstrumentsListPage', {
+            value: function () {
+                sessionManager.checkIfLogged();
+                var site = localStorage.getItem('userSite');
+                if(!site){
+                    window.location.hash = '#/instruments';
+                    return;
+                }
+                this.listSiteInstruments(site).then(function(result){
+                    var instruments = instrumentsManager.renderSiteInstruments(result.result[0]);
+                    templateManager.loadTemplate('site-instruments.html', {instruments: instruments}, " | Site Instruments", null, generalManager.loadTablePlugin());
+                });
+            }
+        });
         Object.defineProperty(instruments, 'filterTableOnButtonClick', {
             value: function () {
 
@@ -192,6 +211,102 @@ var instrumentsModule = (function instrumentsModule() {
                         }, function(error){
                             alert(JSON.stringify(error));
                         })
+                    }
+                });
+            }
+        });
+        Object.defineProperty(instruments, 'returnInstrument', {
+            value: function (id,value, max) {
+                var self = this;
+                try {
+                    validator.validateNumber(value, 'Return quantity')
+                }
+                catch(err) {
+                    return err.message;
+                }
+
+                if(value > max){
+                    return "The maximum return quantity is "+ max;
+                }
+                value = +value;
+
+
+                query = new Everlive.Query();
+                query
+                    .where()
+                    .eq('Id', id);
+                data = self.db.data('Instrument');
+                data.get(query).then(function(result){
+                    var instr = result.result[0];
+
+                    var data = self.db.data('Instrument');
+                    data.update({'AvailableCount': (instr.AvailableCount + value) },{Id: id},function (data) {
+                        var siteId = localStorage.getItem('userSite');
+                        var query = new Everlive.Query();
+                        query
+                            .where()
+                            .eq('Id', siteId);
+                        var data = self.db.data('ConstructionSite');
+                        data.get(query).then(function(result){
+                            var site = result.result[0];
+                            var instruments = site.Instruments;
+
+                            var counts = site.Counts;
+                            if(value != max){
+                                counts[id] = parseInt(counts[id]) - value;
+
+                                var data = self.db.data('ConstructionSite');
+                                data.update({'Counts': counts },{Id: siteId}, function(){
+                                    $('#returnInstrumentModal').modal('hide');
+                                    self.loadSiteInstrumentsListPage();
+                                });
+                            } else {
+                                instruments.forEach(function(el, i){
+                                    if(el == id){
+                                        instruments.splice(i, 1);
+                                    }
+                                });
+                                delete counts[id];
+                                var data = self.db.data('ConstructionSite');
+                                data.update({'Counts': counts, 'Instruments': instruments },{Id: siteId}, function(){
+                                    $('#returnInstrumentModal').modal('hide');
+                                    self.loadSiteInstrumentsListPage();
+
+                                });
+                            }
+                            return;
+                        });
+                    }, function (err) {
+                    });
+
+                });
+
+
+
+
+
+                //var data = el.data('');
+                //data.updateSingle({ Id: 'item-id-here', 'Author': 'Harper Lee' });
+            }
+        });
+        Object.defineProperty(instruments, 'returnInstrumentOnButtonClick', {
+            value: function () {
+                var self = this;
+                $("#container").on("click","#site-instruments-page .return-instrument", function(){
+                    var elem = $("#returnInstrumentModal #returnQuantity");
+                    elem.attr('data-id', $(this).attr('data-id'));
+                    elem.attr('max', $(this).attr('data-count'));
+                });
+
+                $("#container").on("click","#site-instruments-page #submit-return", function(e){
+                    e.preventDefault();
+                    var elem = $("#returnInstrumentModal #returnQuantity");
+                    var value = elem.val();
+                    var id = elem.attr('data-id');
+                    var max = elem.attr('max');
+                    var result = self.returnInstrument(id,value, max);
+                    if(typeof result == "string" ){
+                        alert(result);
                     }
                 });
             }
