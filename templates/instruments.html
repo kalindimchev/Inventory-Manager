@@ -43,8 +43,8 @@
             {{#if ../admin}}{{else}}
             <td>
                 {{#ifCond AvailableCount '>' 0}}
-                <button type="button" data-id="{{Id}}" data-toggle="modal" data-target="#instrumentModal"
-                        class="edit-instrument btn btn-info active">Add request
+                <button type="button" data-id="{{Id}}" data-count="{{Count}}" data-toggle="modal" data-target="#makeRequestModal"
+                        class="request-instrument btn btn-info active">Add request
                 </button>
                 {{/ifCond}}
             </td>
@@ -53,10 +53,11 @@
         {{~/each}}
         </tbody>
     </table>
-</div>
+
+
 
 <!-- Modal -->
-<div class="modal fade" id="instrumentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="makeRequestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -69,21 +70,10 @@
                     <fieldset>
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="count">Total Count</label>
+                            <label class="col-md-4 control-label" for="request-quantity">Request Quantity</label>
 
                             <div class="col-md-4">
-                                <input id="count" name="count" placeholder="" class="form-control input-md" required=""
-                                       type="text">
-
-                            </div>
-                        </div>
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="availableCount">Available Count</label>
-
-                            <div class="col-md-4">
-                                <input id="availableCount" name="availableCount" placeholder=""
-                                       class="form-control input-md" required="" type="text">
+                                <input id="request-quantity" data-id="" name="request-quantity" type="number" min="1" max="5" value="1" class="form-control input-md" required>
 
                             </div>
                         </div>
@@ -92,8 +82,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button id="submit-request" type="button" class="btn btn-primary">Request</button>
             </div>
         </div>
     </div>
+</div>
 </div>

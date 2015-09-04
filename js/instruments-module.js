@@ -179,7 +179,7 @@ var instrumentsModule = (function instrumentsModule() {
                 var site = localStorage.getItem('userSite');
                 this.listRequests(site).then(function(result){
                     result = result.result;
-                    console.log(result);
+
                     var options = {
                         "instruments": result
                     };
@@ -320,6 +320,50 @@ var instrumentsModule = (function instrumentsModule() {
                 });
             }
         });
+        Object.defineProperty(instruments, 'requestInstrument', {
+            value: function (id,value, max) {
+                var self = this;
+                try {
+                    validator.validateNumber(value, 'Return quantity')
+                }
+                catch(err) {
+                    return err.message;
+                }
+
+                if(value > max){
+                    return "The maximum return quantity is "+ max;
+                }
+                value = +value;
+
+
+                var instrumentId = id;
+                var siteId = localStorage.getItem('userSite');
+                query = new Everlive.Query();
+                query
+                    .where()
+                    .eq('Id', siteId);
+                data = self.db.data('ConstructionSite');
+                data.get(query).then(function(result){
+                    var site = result.result[0];
+
+                    var info = {
+                        "Instrument": instrumentId,
+                        "ConstructionSite": siteId,
+                        "Count": value,
+                        "Status": 'pending',
+                        "SiteManager": site.PersonInCharge
+                    };
+
+                    var data = self.db.data('Request');
+
+                    return data.create(info).then(function(){
+                        $('#makeRequestModal').modal('hide');
+                        window.location.hash = '#/requests';
+                    });
+                });
+
+            }
+        });
         Object.defineProperty(instruments, 'returnInstrument', {
             value: function (id,value, max) {
                 var self = this;
@@ -410,6 +454,28 @@ var instrumentsModule = (function instrumentsModule() {
                     var id = elem.attr('data-id');
                     var max = elem.attr('max');
                     var result = self.returnInstrument(id,value, max);
+                    if(typeof result == "string" ){
+                        alert(result);
+                    }
+                });
+            }
+        });
+        Object.defineProperty(instruments, 'requestInstrumentOnButtonClick', {
+            value: function () {
+                var self = this;
+                $("#container").on("click","#instruments-admin-page .request-instrument", function(){
+                    var elem = $("#makeRequestModal #request-quantity");
+                    elem.attr('data-id', $(this).attr('data-id'));
+                    elem.attr('max', $(this).attr('data-count'));
+                });
+
+                $("#container").on("click","#instruments-admin-page #submit-request", function(e){
+                    e.preventDefault();
+                    var elem = $("#instruments-admin-page #request-quantity");
+                    var value = elem.val();
+                    var id = elem.attr('data-id');
+                    var max = elem.attr('max');
+                    var result = self.requestInstrument(id,value, max);
                     if(typeof result == "string" ){
                         alert(result);
                     }

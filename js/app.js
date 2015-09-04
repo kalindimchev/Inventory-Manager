@@ -101,6 +101,7 @@ instrumentsManager.submitCreateForm();
 instrumentsManager.filterTableOnButtonClick();
 
 instrumentsManager.returnInstrumentOnButtonClick();
+instrumentsManager.requestInstrumentOnButtonClick();
 instrumentsManager.DenyOnButtonClick();
 instrumentsManager.ApproveOnButtonClick();
 
