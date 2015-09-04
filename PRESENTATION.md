@@ -1,6 +1,12 @@
-#Inventory-Manager: Team Planter's Punch
+#Inventory-Manager: Javascript Applications Teamwork
 
-*Javascript Applications Teamwork*
+*Team Planter's Punch*
+
+- Kalin Dimchev([TelerikAcademy profile](http://telerikacademy.com/Users/kalin.dimchev), [GitHub profile](https://github.com/kalindimchev))
+- Kristina Mileva([TelerikAcademy profile](http://telerikacademy.com/Users/KMileva), [GitHub profile](https://github.com/ChrisChrisi))
+- Ekaterina Martiniuk([TelerikAcademy profile](http://telerikacademy.com/Users/Katya), [GitHub profile](https://github.com/KatGitHub))
+- Ivelina Popova([TelerikAcademy profile](http://telerikacademy.com/Users/iwelina.popova), [GitHub profile](https://github.com/iwelina-popova))
+- Konstantin Simeonov([TelerikAcademy profile](http://telerikacademy.com/Users/kon.simeonov), [GitHub profile](https://github.com/KonstantinSimeonov))
 
 
 ##Application goals:
@@ -37,10 +43,6 @@ We used:
 		
 	- _app.js_: responsible for the routing
 			
-	- _login.js_: responsible for logging the user
-			
-	- _registration.js_: responsible for registration
-			
 	- _general-module.js_: responsible for template loading
 			
 	- _inventory-module.js_: ??
@@ -48,3 +50,5 @@ We used:
 	- _factory.js_: provides model creation
 			
 	- _validator.js_: provides validation for other modules
+	
+	- _session-module.js_: provides login and registration logic
