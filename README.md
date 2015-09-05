@@ -1,147 +1,56 @@
-# Inventory-Manager
-JS Apps Teamwork
+#Inventory-Manager: Javascript Applications Teamwork
 
-TODO:
+*Team Planter's Punch*
 
-1. Content types:
-
-  1.1. User
-  
-    1.1.1. Admin
-    
-        - Avatar URL
-        
-        - Total Inventory List - Item, Total Count, Available Count, Not Available Count - Christina 
-        
-        - Request List - Item, From Whom, Count, Status - Christina
-        
-        - Reservation List - Includes all Instruments that are transfered in Construction Sites - Christina 
-        
-    1.1.2. Site Manager
-    
-        - Avatar URL
-        
-        - Construction site inventory list - Item, Count 
-        
-        - Request History - Item, Count, Status 
-        
-        - Construction site /property/
-        
-  1.2. Instrument /ID is automatically generated/
-  
-    - Brand
-    
-    - Model
-    
-    - Total Count
-    
-  1.3. Request
-  
-    - Instrument ID
-    
-    - Site manager ID
-    
-    - Count
-    
-    - Status - Initially Pending
-    
-  1.4. Reservation
-  
-    - Instrument ID
-    
-    - Site manager ID
-    
-    - Count
-    
-    
-2. Application screen and Logic
-
-  2.1. Initial Screen
-  
-    - username input
-    
-    - password input
-    
-    - login button - check in Dictionary if there is User with given Username and Password
-    
-  2.2. Admin Screen
-  
-    2.2.1. Approve Request
-    
-      - Create Reservation and Update Reservation List
-      
-      - Update Request status
-      
-      - Update Instrument count in Admin and Site manager Inventory List
-      
-    2.2.2. Deny Request
-    
-      - Update Request status
-      
-    2.2.4. Add Instrument to Inventory List - Create new Instrument item. - Christina
-    
-      Request inventory list is reloading every 10 sec /for example/ or when Single Request change its status.
-      
-    2.2.3. Assign Site manager to Construction site. Construction site is only property
-    
-  2.3. Site manager Screen
-  
-      - Make request button - Create Request object. Display Request inputs and submit button. Update all tables, related with requests.
-      
-      - Release request button - Delete Reservation. Update counts in Admin and Site manager count.
-      
-  2. Application screen and Logic
-
-  2.1. Initial Screen - Kalin
-  
-    - username input - Kalin
-    
-    - password input - Kalin
-    
-    - login button - check in Dictionary if there is User with given Username and Password - Kalin
-    
-    - facebook login - Katya
-    
-  2.2. Admin Screen
-  
-    2.2.1. Approve Request - Christina
-    
-      - Create Reservation and Update Reservation List - Christina
-      
-      - Update Request status - Christina
-      
-      - Update Instrument count in Admin and Site manager Inventory  - Christina
-      
-    2.2.2. Deny Request - Christina
-    
-      - Update Request status Christina
-      
-    2.2.4. Add Instrument to Inventory List - Create new Instrument item. - Christina
-    
-      Request inventory list is reloading every 10 sec /for example/ or when Single Request change its status. - Katya
-      
-    2.2.3. Assign Site manager to Construction site. Construction site is only property - Katya
-    
-  2.3. Site manager Screen - Ivelina
-  
-      - Make request button - Create Request object. Display Request inputs and submit button. Update all tables, related with requests. - Ivelina
-      
-      - Release request button - Delete Reservation. Update counts in Admin and Site manager count. - Ivelina
-    
-  2.4 Asynchronous module loading with Systemjs
-  
-      - Implement module loading with Systemjs - Konstantin
-      
-      - Improve the testability of the different modules - Konstantin
+- Kalin Dimchev([TelerikAcademy profile](http://telerikacademy.com/Users/kalin.dimchev), [GitHub profile](https://github.com/kalindimchev))
+- Kristina Mileva([TelerikAcademy profile](http://telerikacademy.com/Users/KMileva), [GitHub profile](https://github.com/ChrisChrisi))
+- Ekaterina Martiniuk([TelerikAcademy profile](http://telerikacademy.com/Users/Katya), [GitHub profile](https://github.com/KatGitHub))
+- Ivelina Popova([TelerikAcademy profile](http://telerikacademy.com/Users/iwelina.popova), [GitHub profile](https://github.com/iwelina-popova))
+- Konstantin Simeonov([TelerikAcademy profile](http://telerikacademy.com/Users/kon.simeonov), [GitHub profile](https://github.com/KonstantinSimeonov))
 
 
+##Application goals:
 
-DONE Tasks:
+Facilitate distribution, management and locating of construction instruments and
+	
+tools for different construction managers across different construction sites.
 
-- Add all Content types in Telerik BackEnd Services
-- Login and redirect
-- Register and redirect
-- Object for loading templates (in generalModule)
-- List instrument in admin's profile
-- Add new instrument from admin rofile
+##This is achieved by:
 
+1. Providing a registration platform with different roles for admins and construction site managers
+	
+2. Managers have a list of instruments, can request new tools and return tools from their inventory
+	
+2. Managers can view their instruments, their construction site and all available instruments
+	
+3. Admins can resolve requests, create constructions sites and assign managers to sites
+	
+	
+##Project description according to the requirements:
+We used:
+	
+* **jQuery** for DOM manipulations and AJAX queries
+		
+* **Twitter Bootstrap** for styling
+		
+* **Mocha** and **Chai** for simple unit testing, **Sinon** for AJAX testing and mocking
+		
+* **Telerik Backend Services** for web data storage
+		
+* **localStorage** for storing the logged user
+
+* **Sammy.js** for the routing
+		
+* **Modules**:
+		
+	- _app.js_: responsible for the routing
+	
+	- _factory.js_: provides model creation
+	
+	- _construction-sites-module.js_: responsible for submitting constructions sites to and fetching constructions sites from the backend
+			
+	- _general-module.js_: responsible for template loading
+			
+	- _validator.js_: provides validation for other modules
+	
+	- _session-module.js_: provides login and registration logic

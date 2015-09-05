@@ -78,7 +78,7 @@ describe('Factory tests', function () {
 describe('Template manager', function () {
 
 	it('expects loadTemplate, getTemplate and init to exist as properties in the manager and to be functions', function () {
-		var templateManager = generalModule().getTemplateManager();
+		var templateManager = generalModule.getTemplateManager();
 
 		expect(typeof templateManager.loadTemplate).to.equal('function');
 		expect(typeof templateManager.getTemplate).to.equal('function');
@@ -86,14 +86,14 @@ describe('Template manager', function () {
 	});
 
 	it('expects getTemplate to return a template with correct template name as parameter', function () {
-		var template = generalModule().getTemplateManager().getTemplate('login.html');
+		var template = generalModule.getTemplateManager().getTemplate('login.html');
 
 		expect(template).to.exist;
 		console.log(template);
 	});
 	
 	it('expects init function of template manager to correctly initialize the manager', function (){
-		var manager = generalModule().getTemplateManager().init();
+		var manager = generalModule.getTemplateManager().init();
 		
 		expect(typeof manager.templates).to.equal('object');
 		expect(typeof manager.container).to.equal('object');
@@ -201,7 +201,8 @@ describe('Validator', function () {
 });
 
 describe('Login tests', function () {
-
+	var logUser = sessionManager.logUser;
+	console.log(sessionManager);
 	it('expects login function to use a GET query to authenticate user', function () {
 		sinon.stub($, 'ajax');
 		logUser(sinon.spy());
