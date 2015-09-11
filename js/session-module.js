@@ -33,7 +33,7 @@
                         console.log('hodor hodor.. HODOR');
                         var result;
                         $.ajax({
-                            url: 'https://api.everlive.com//v1/' + CONSTANTS.API_KEY + '/ConfidentialData',
+                            url: 'http://api.everlive.com/v1/' + CONSTANTS.API_KEY + '/ConfidentialData',
                             type: "GET",
                             success: function (data) {
 
@@ -54,7 +54,7 @@
 
                                     $.ajax({
                                         type: "POST",
-                                        url: 'https://api.everlive.com//v1/' + CONSTANTS.API_KEY + '/ConfidentialData',
+                                        url: 'http://api.everlive.com/v1/' + CONSTANTS.API_KEY + '/ConfidentialData',
                                         contentType: "application/json",
                                         data: JSON.stringify(newConfidentialData),
                                         success: function (data) {
@@ -67,7 +67,7 @@
 
                                     $.ajax({
                                         type: "POST",
-                                        url: 'https://api.everlive.com//v1/' + CONSTANTS.API_KEY + '/SiteManager',
+                                        url: 'http://api.everlive.com/v1/' + CONSTANTS.API_KEY + '/SiteManager',
                                         contentType: "application/json",
                                         data: JSON.stringify(newSiteManager),
                                         success: function (data) {
@@ -121,7 +121,7 @@
 
                     var promise = new Promise(function (resolve, reject) {
                         $.ajax({
-                            url: 'https://api.everlive.com//v1/' + CONSTANTS.API_KEY + '/ConfidentialData',
+                            url: 'http://api.everlive.com/v1/' + CONSTANTS.API_KEY + '/ConfidentialData',
                             method: 'GET',
                             success: function (data) {
                                 //console.log(data.Result);
